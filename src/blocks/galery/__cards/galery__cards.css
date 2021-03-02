@@ -1,0 +1,16 @@
+.galery__cards {
+  max-width: 880px;
+  box-sizing: border-box;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  row-gap: 20px;
+  column-gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+}
+
+@media (max-width: 879px) {
+  .galery__cards {
+    padding: 0 19px;
+  }
+}

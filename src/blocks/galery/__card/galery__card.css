@@ -1,0 +1,13 @@
+.galery__card {
+  min-width: 282px;
+  width: 100%;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: minmax(242px, 100%) 40px;
+  grid-template-rows: 282px 79px;
+  background-color: #fff;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
