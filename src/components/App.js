@@ -1,42 +1,18 @@
-import './index.css';
-import logo from './images/logo.svg';
+import '../index.css';
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
 
 function App() {
   return (
-
     <div className="body">
       <div className="page">
 
-        <header className="header">
-          <a href="./index.html" className="header__logo-link" target="_self">
-            <img src={logo} alt="Логотип" className="header__logo" />
-          </a>
-        </header>
+      <Header />
+      <Main />
+      <Footer />
 
-        <main>
-          <section className="profile">
-            <button className="profile__image profile__image_visible_hidden" aria-label="Аватар"></button>
-            <div className="profile__image profile__image_loading"></div>
-            <div className="profile__text-wrap">
-              <div className="profile__title-wrap">
-                <h1 className="profile__title" aria-label="Имя"></h1>
-                <button type="button" aria-label="Edit_profile" className="profile__edit"></button>
-              </div>
-              <p className="profile__subtitle" aria-label="Описание"></p>
-            </div>
-            <button type="button" aria-label="Add_img" className="profile__add-card-button"></button>
-          </section>
-
-          <section className="galery galery_margins" aria-label="Галерея">
-            <div className="galery__cards">
-              <div className="galery__card galery__card_loading"></div>
-            </div>
-          </section>
-        </main>
-
-        <footer className="footer">
-          <p className="footer__copyright">&copy; 2020 Mesto Russia</p>
-        </footer>
+        
       </div>
 
       <div className="popup popup_profile_edit-form">
@@ -114,7 +90,7 @@ function App() {
       <div className="popup galery galery_popup">
         <figure className="galery__popup-image-container">
           <button type="button" aria-label="Close_popup" className="popup__exit-button galery__popup-exit"></button>
-          <img src="<%=require('./images/galery/galery_volcano.jpg')%>" alt="Корякский вулкан" className="galery__fulsize-img" />
+          <img src="#" alt="Корякский вулкан" className="galery__fulsize-img" />
           <figcaption className="galery__popup-text">Корякский вулкан</figcaption>
         </figure>
       </div>
@@ -131,7 +107,6 @@ function App() {
           </div>
         </article>
        </template>
-
   </div>
 
   );
