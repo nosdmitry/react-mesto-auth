@@ -1,24 +1,25 @@
 function Main() {  
 
   function handleEditProfileClick() {
-    const popupEditProfile = document.querySelector('.popup_profile_edit-form');
+    const popupEditProfile = document.querySelector('.popup_type_profile-edit-form');
     popupEditProfile.classList.add('popup_opened');
   }
 
   function handleEditAvatarClick() {
-    const popupEditAvatar = document.querySelector('.popup_change_avatar');
+    const popupEditAvatar = document.querySelector('.popup_type_change-avatar');
     popupEditAvatar.classList.add('popup_opened');
   }
 
   function handleAddPlaceClick() {
-    const popupAddCard = document.querySelector('.popup_cards_add-form');
+    const popupAddCard = document.querySelector('.popup_type_cards-add-form');
     popupAddCard.classList.add('popup_opened');
   }
 
   return (
     <main>
       <section className="profile">
-        <button onClick={handleEditAvatarClick} className="profile__image profile__image_visible_hidden" aria-label="Аватар"></button>
+        {/* <button onClick={handleEditAvatarClick} className="profile__image profile__image_visible_hidden" aria-label="Аватар"></button> */}
+        <button onClick={handleEditAvatarClick} className="profile__image profile__image" aria-label="Аватар"></button>
         <div className="profile__image profile__image_loading"></div>
         <div className="profile__text-wrap">
           <div className="profile__title-wrap">
