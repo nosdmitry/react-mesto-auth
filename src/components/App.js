@@ -24,6 +24,12 @@ function App() {
     setIsEditAvatarPopupOpen(() => !isEditAvatarPopupOpened);
   }
 
+  function closeAllPopups() {
+    console.log('pressed close button')
+    setIsEditProfilePopupOpen(() => false);
+    setIsAddPlacePopupOpen(() => false);
+    setIsEditAvatarPopupOpen(() => false);
+  }
 
   return (
     <>
@@ -42,6 +48,7 @@ function App() {
         title="Редактировать профиль" 
         submitName="Сохранить"
         isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
       >
         <label className="popup__form-field">
           <input id="user-name" type="text" name="popup_name" minLength="2" maxLength="40" placeholder="Имя"
@@ -60,6 +67,7 @@ function App() {
         title="Обновить аватар" 
         submitName="Сохранить"
         isOpen={isEditAvatarPopupOpened}
+        onClose={closeAllPopups}
       >
         <label className="popup__form-field">
           <input id="user-avatar" type="url" name="popup_description" placeholder="Ссылка на картинку"
@@ -73,6 +81,7 @@ function App() {
         title="Новое место" 
         submitName="Создать"
         isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
       >
         <label className="popup__form-field">
           <input id="place-name" type="text" name="popup_name" minLength="2" maxLength="30" placeholder="Название"
@@ -86,9 +95,16 @@ function App() {
         </label>
       </PopupWithForm>
 
-      <PopupWithForm name="card-delete" title="Вы уверены?" submitName="Удалить" />
+      <PopupWithForm 
+        name="card-delete" 
+        title="Вы уверены?" 
+        submitName="Удалить" 
+        onClose={closeAllPopups}
+      />
 
-      <PopupWithImage />
+      <PopupWithImage 
+        onClose={closeAllPopups}
+      />
         
       <template className="galery galery_card-tamplate">
         <article className="galery__card">
