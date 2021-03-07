@@ -4,17 +4,45 @@ import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import PopupWithImage from './PopupWithImage';
+import React from 'react';
 
 function App() {
+
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpened, setIsEditAvatarPopupOpen] = React.useState(false);
+  
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(() => !isEditProfilePopupOpen);
+  }
+
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(() => !isAddPlacePopupOpen);
+  }
+
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(() => !isEditAvatarPopupOpened);
+  }
+
+
   return (
     <>
       <div className="page">
         <Header />
-        <Main />
+        <Main 
+          onEditProfile={handleEditProfileClick} 
+          onAddPlace={handleAddPlaceClick} 
+          onEditAvatar={handleEditAvatarClick} 
+        />
         <Footer />
       </div>
 
-      <PopupWithForm name="profile-edit-form" title="Редактировать профиль" submitName="Сохранить">
+      <PopupWithForm 
+        name="profile-edit-form" 
+        title="Редактировать профиль" 
+        submitName="Сохранить"
+        isOpen={isEditProfilePopupOpen}
+      >
         <label className="popup__form-field">
           <input id="user-name" type="text" name="popup_name" minLength="2" maxLength="40" placeholder="Имя"
             className="popup__input popup__input_type_name" required />
@@ -27,7 +55,12 @@ function App() {
         </label>
       </PopupWithForm>
 
-      <PopupWithForm name="change-avatar" title="Обновить аватар" submitName="Сохранить">
+      <PopupWithForm 
+        name="change-avatar" 
+        title="Обновить аватар" 
+        submitName="Сохранить"
+        isOpen={isEditAvatarPopupOpened}
+      >
         <label className="popup__form-field">
           <input id="user-avatar" type="url" name="popup_description" placeholder="Ссылка на картинку"
             className="popup__input popup__input_type_image-link" required />
@@ -35,7 +68,12 @@ function App() {
         </label>
       </PopupWithForm>
 
-      <PopupWithForm name="cards-add-form" title="Новое место" submitName="Создать">
+      <PopupWithForm 
+        name="cards-add-form" 
+        title="Новое место" 
+        submitName="Создать"
+        isOpen={isAddPlacePopupOpen}
+      >
         <label className="popup__form-field">
           <input id="place-name" type="text" name="popup_name" minLength="2" maxLength="30" placeholder="Название"
             className="popup__input popup__input_type_card-name" required />
@@ -52,7 +90,6 @@ function App() {
 
       <PopupWithImage />
         
-
       <template className="galery galery_card-tamplate">
         <article className="galery__card">
           <button type="button" className="galery__delete-card-button galery__delete-card-button_visible_hidden" aria-label="Delete_card"></button>
