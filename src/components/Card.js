@@ -1,7 +1,7 @@
 function Card(props) {
   
   function handlePopup() {
-    props.openImage(props.link);
+    props.openImage(props);
   }
 
   return (
