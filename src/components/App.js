@@ -5,12 +5,18 @@ import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import PopupWithImage from './PopupWithImage';
 import React from 'react';
+import ImagePopup from './ImagePopup';
 
 function App() {
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpened, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(undefined);
+
+  const handleCardClick = (card) => {
+    setSelectedCard(card);
+  }
   
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(() => !isEditProfilePopupOpen);
@@ -25,10 +31,10 @@ function App() {
   }
 
   function closeAllPopups() {
-    console.log('pressed close button')
     setIsEditProfilePopupOpen(() => false);
     setIsAddPlacePopupOpen(() => false);
     setIsEditAvatarPopupOpen(() => false);
+    setSelectedCard(() => undefined);
   }
 
   return (
@@ -39,9 +45,15 @@ function App() {
           onEditProfile={handleEditProfileClick} 
           onAddPlace={handleAddPlaceClick} 
           onEditAvatar={handleEditAvatarClick} 
+          onCardClick={handleCardClick}
         />
         <Footer />
       </div>
+
+      <ImagePopup 
+        card={selectedCard}
+        onClose={closeAllPopups}
+      />
 
       <PopupWithForm 
         name="profile-edit-form" 
@@ -58,7 +70,7 @@ function App() {
         <label className="popup__form-field">
           <input id="user-description" type="text" name="popup_description" minLength="2" maxLength="200"
             placeholder="Род деятельности" className="popup__input popup__input_type_description" required />
-          <span className="user-description-error popup__error">sfsdfs</span>
+          <span className="user-description-error popup__error"></span>
         </label>
       </PopupWithForm>
 

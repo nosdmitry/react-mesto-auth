@@ -29,8 +29,6 @@ function Main(props) {
       .catch(err => console.log('########Card error', err));
   }, []);
 
-  console.log(loadingSpinner)
-
   return (
     <main>
       <section className="profile">
@@ -70,6 +68,8 @@ function Main(props) {
                     <Card 
                       name={ card.name }
                       link={ card.link }
+                      likes={ card.likes.length }
+                      openImage={ props.onCardClick }
                     />
                   </article>
                 );
