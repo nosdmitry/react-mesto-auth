@@ -1,5 +1,6 @@
 import React from 'react';
 import api from './Api';
+import Card from './Card';
 
 function Main(props) {
 
@@ -25,7 +26,6 @@ function Main(props) {
         setCards(data);
         setLoadingSpinner(false);
       })
-      
       .catch(err => console.log('########Card error', err));
   }, []);
 
@@ -67,14 +67,10 @@ function Main(props) {
               : cards.map((card, i) => {
                 return (
                   <article key={ i } className="galery__card">
-                    <button type="button" className="galery__delete-card-button galery__delete-card-button_visible_hidden" aria-label="Delete_card"></button>
-                    <img src={ card.link } alt={ card.name } className="galery__img" /> 
-                    <h2 className="galery__text">{ card.name }</h2>
-                    <div className="galery__likes-wrap">
-                      <button type="button" aria-label="Like" className="galery__heart"></button>
-                      <div className="galery__heart galery__heart_loading galery__heart_visible_hidden"></div>
-                      <span className="galery__likes-counter">{ card.likes.length }</span>
-                    </div> 
+                    <Card 
+                      name={ card.name }
+                      link={ card.link }
+                    />
                   </article>
                 );
               })
