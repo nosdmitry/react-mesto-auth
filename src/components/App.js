@@ -19,22 +19,22 @@ function App() {
   }
   
   function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(() => !isEditProfilePopupOpen);
+    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
   }
 
   function handleAddPlaceClick() {
-    setIsAddPlacePopupOpen(() => !isAddPlacePopupOpen);
+    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
   function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(() => !isEditAvatarPopupOpened);
+    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpened);
   }
 
   function closeAllPopups() {
-    setIsEditProfilePopupOpen(() => false);
-    setIsAddPlacePopupOpen(() => false);
-    setIsEditAvatarPopupOpen(() => false);
-    setSelectedCard(() => undefined);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setSelectedCard(undefined);
   }
 
   return (
@@ -117,21 +117,7 @@ function App() {
       <PopupWithImage 
         onClose={closeAllPopups}
       />
-        
-      <template className="galery galery_card-tamplate">
-        <article className="galery__card">
-          <button type="button" className="galery__delete-card-button galery__delete-card-button_visible_hidden" aria-label="Delete_card"></button>
-          <img src="./images/galery/galery_volcano.jpg" alt="Корякский вулкан" className="galery__img" />
-          <h2 className="galery__text">Корякская Сопка</h2>
-          <div className="galery__likes-wrap">
-            <button type="button" aria-label="Like" className="galery__heart"></button>
-            <div className="galery__heart galery__heart_loading galery__heart_visible_hidden"></div>
-            <span className="galery__likes-counter">0</span>
-          </div>
-        </article>
-      </template>
     </>
-
   );
 }
 

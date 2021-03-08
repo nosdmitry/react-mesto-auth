@@ -17,7 +17,7 @@ function Main(props) {
         setUserDescription(data.about);
         setUserAvatar(data.avatar);
       })
-      .catch(err => console.log('#######ERROR!!', err));
+      .catch(err => console.log('User data error:', err));
   }, []);
 
   React.useEffect(() => {
@@ -26,7 +26,7 @@ function Main(props) {
         setCards(data);
         setLoadingSpinner(false);
       })
-      .catch(err => console.log('########Card error', err));
+      .catch(err => console.log('Cards data error: ', err));
   }, []);
 
   return (

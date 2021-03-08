@@ -1,5 +1,5 @@
 function Card(props) {
-  console.log('rendered');
+  
   function handlePopup() {
     props.openImage(props.link);
   }

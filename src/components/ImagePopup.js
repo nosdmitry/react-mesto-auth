@@ -1,5 +1,4 @@
 function ImagePopup(props) {
-  console.log('imagePopup', props)
   return(
     <div className={`popup galery galery_popup ${ props.card ? 'popup_opened' : '' }`}>
       <figure className="galery__popup-image-container">
