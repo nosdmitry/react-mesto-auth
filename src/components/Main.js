@@ -1,5 +1,5 @@
 import React from 'react';
-import api from './Api';
+import api from '../utils/Api';
 import Card from './Card';
 
 function Main(props) {
@@ -15,7 +15,7 @@ function Main(props) {
       .then(data => {
         setUserName(data.name);
         setUserDescription(data.about);
-        setUserAvatar(data.avatar);
+        setUserAvatar(data.avatar)
       })
       .catch(err => console.log('User data error:', err));
   }, []);
@@ -62,9 +62,9 @@ function Main(props) {
           {
             loadingSpinner 
               ? (<div className="galery__card galery__card_loading"></div>)
-              : cards.map((card, i) => {
+              : cards.map((card) => {
                 return (
-                  <article key={ i } className="galery__card">
+                  <article key={ card._id } className="galery__card">
                     <Card 
                       name={ card.name }
                       link={ card.link }
