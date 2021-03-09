@@ -5,7 +5,6 @@ import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import PopupWithImage from './PopupWithImage';
 import React from 'react';
-import ImagePopup from './ImagePopup';
 
 function App() {
 
@@ -50,7 +49,7 @@ function App() {
         <Footer />
       </div>
 
-      <ImagePopup 
+      <PopupWithImage 
         card={selectedCard}
         onClose={closeAllPopups}
       />
