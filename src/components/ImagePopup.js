@@ -1,4 +1,4 @@
-function PopupWithImage(props) {
+function ImagePopup(props) {
   if(props.card) {
     return(
       <div className={`popup galery galery_popup popup_opened`}>
@@ -14,4 +14,4 @@ function PopupWithImage(props) {
   }
 }
 
-export default PopupWithImage;
+export default ImagePopup;
