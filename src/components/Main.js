@@ -1,24 +1,15 @@
 import React from 'react';
+import { CurrentUserContext } from '../context/CurrentUserContext';
 import api from '../utils/Api';
 import Card from './Card';
 
 function Main(props) {
 
-  const [userName, setUserName] = React.useState('Загрузка');
-  const [userDescription, setUserDescription] = React.useState('Загрузка');
-  const [userAvatar, setUserAvatar] = React.useState('./static/media/avatar-loader.7741db8b.gif');
+  //const [userAvatar, setUserAvatar] = React.useState('./static/media/avatar-loader.7741db8b.gif');
   const [cards, setCards] = React.useState([]);
   const [loadingSpinner, setLoadingSpinner] = React.useState(true);
 
-  React.useEffect(() => {
-    api.getUserInfo()
-      .then(data => {
-        setUserName(data.name);
-        setUserDescription(data.about);
-        setUserAvatar(data.avatar)
-      })
-      .catch(err => console.log('User data error:', err));
-  }, []);
+  const currentUser = React.useContext(CurrentUserContext);
 
   React.useEffect(() => {
     api.getAllCards()
@@ -34,12 +25,12 @@ function Main(props) {
       <section className="profile">
         <button onClick={props.onEditAvatar}
           className="profile__image profile__image"
-          style={{ backgroundImage: `url(${userAvatar})` }}
+          style={{ backgroundImage: `url(${currentUser.avatar})` }}
           aria-label="Аватар">
         </button>
         <div className="profile__text-wrap">
           <div className="profile__title-wrap">
-            <h1 className="profile__title" aria-label="Имя">{userName}</h1>
+            <h1 className="profile__title" aria-label="Имя">{currentUser.name}</h1>
             <button
               onClick={props.onEditProfile}
               type="button"
@@ -47,7 +38,7 @@ function Main(props) {
               className="profile__edit">
             </button>
           </div>
-          <p className="profile__subtitle" aria-label="Описание">{userDescription}</p>
+          <p className="profile__subtitle" aria-label="Описание">{currentUser.about}</p>
         </div>
         <button
           onClick={props.onAddPlace}
