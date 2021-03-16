@@ -3,6 +3,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
+import EditProfilePopup from './EditProfilePopup';
 import ImagePopup from './ImagePopup';
 import React from 'react';
 import api from '../utils/Api';
@@ -39,12 +40,21 @@ function App() {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpened);
   }
 
+  function handleUpdateUser(userData) {
+    api.editUserInfo(userData)
+      .then(data => {
+        setCurrentUser(data);
+        closeAllPopups();
+      })
+      .catch(err => console.log('#### Edit user failed ####', err));
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setSelectedCard(false);
-  }
+  }  
   
   return (
     <CurrentUserContext.Provider value={ currentUser }>
@@ -52,44 +62,31 @@ function App() {
       <div className="page">
         <Header />
         <Main 
-          onEditProfile={handleEditProfileClick} 
-          onAddPlace={handleAddPlaceClick} 
-          onEditAvatar={handleEditAvatarClick} 
-          onCardClick={handleCardClick}
+          onEditProfile={ handleEditProfileClick } 
+          onAddPlace={ handleAddPlaceClick } 
+          onEditAvatar={ handleEditAvatarClick } 
+          onCardClick={ handleCardClick }
         />
         <Footer />
       </div>
 
       <ImagePopup 
-        card={selectedCard}
-        onClose={closeAllPopups}
+        card={ selectedCard }
+        onClose={ closeAllPopups }
       />
 
-      <PopupWithForm 
-        name="profile-edit-form" 
-        title="Редактировать профиль" 
-        submitName="Сохранить"
-        isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}
-      >
-        <label className="popup__form-field">
-          <input id="user-name" type="text" name="popup_name" minLength="2" maxLength="40" placeholder="Имя"
-            className="popup__input popup__input_type_name" required />
-          <span className="user-name-error popup__error"></span>
-        </label>
-        <label className="popup__form-field">
-          <input id="user-description" type="text" name="popup_description" minLength="2" maxLength="200"
-            placeholder="Род деятельности" className="popup__input popup__input_type_description" required />
-          <span className="user-description-error popup__error"></span>
-        </label>
-      </PopupWithForm>
+      <EditProfilePopup 
+        isOpen={ isEditProfilePopupOpen }
+        onClose={ closeAllPopups }
+        onUpdateUser={ handleUpdateUser }
+      />
 
       <PopupWithForm 
         name="change-avatar" 
         title="Обновить аватар" 
         submitName="Сохранить"
-        isOpen={isEditAvatarPopupOpened}
-        onClose={closeAllPopups}
+        isOpen={ isEditAvatarPopupOpened }
+        onClose={ closeAllPopups }
       >
         <label className="popup__form-field">
           <input id="user-avatar" type="url" name="popup_description" placeholder="Ссылка на картинку"

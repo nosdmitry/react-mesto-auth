@@ -6,7 +6,12 @@ function PopupWithForm(props) {
         className="popup__exit-button exit exit_button_profile-popup">
       </button>
       <h3 className="popup__form-title">{props.title}</h3>
-      <form name={`popup_form_${props.name}`} className="popup__form popup__form_edit_peronal-data" noValidate>
+      <form 
+        onSubmit={ props.onSubmit }
+        name={`popup_form_${props.name}`} 
+        className="popup__form popup__form_edit_peronal-data" 
+        noValidate
+      >
         { props.children }
         <button type="submit" name="submit-edit-profile" className="popup__submit-button">{props.submitName}</button>
       </form>

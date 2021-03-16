@@ -43,6 +43,7 @@ function Main(props) {
           })
         });
       })
+      .catch(err => console.log('#### Delete card error ####', err));
   }
 
   return (
