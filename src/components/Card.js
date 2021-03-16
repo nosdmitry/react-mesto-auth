@@ -1,9 +1,13 @@
 import React from 'react';
 import { CurrentUserContext } from '../context/CurrentUserContext';
 
-function Card({ card, openImage, onCardLike }) {
+function Card({ card, openImage, onCardLike, onCardDelete }) {
 
   const currentUser = React.useContext(CurrentUserContext);
+
+  function handleDeleteClick() {
+    onCardDelete(card);
+  }
 
   function handleCardLike() {
     onCardLike(card);
@@ -20,6 +24,7 @@ function Card({ card, openImage, onCardLike }) {
   return (
     <>
       <button 
+        onClick={ handleDeleteClick }
         type="button" 
         className={`galery__delete-card-button galery__delete-card-button${
           isOwner ? '' : '_visible_hidden'
