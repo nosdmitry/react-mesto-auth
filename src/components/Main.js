@@ -24,7 +24,11 @@ function Main(props) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
     api.handleCardLikeStatus(card._id, !isLiked)
       .then((newCard) => {
-        setCards(state => state.map((c) => c._id === card._id ? newCard : c));
+        setCards(state => {
+          return state.map((c) => {
+            return c._id === card._id ? newCard : c;
+          });
+        });
       })
       .catch(err => console.log('#### Handle Like Error ####', err));
   }
@@ -32,13 +36,10 @@ function Main(props) {
   function handleCardDelete(card) {
     console.log('Delete button clicked!', card);
     api.deleteCard(card._id)
-      .then((newCard) => {
-        console.log('newCard', newCard)
+      .then((fetchData) => {
         setCards(state => {
-          console.log('state', state);
           return state.filter((c) => {
-            console.log(c);
-            return c._id === card._id ? newCard : c
+            return c._id === card._id ? null : c;
           })
         });
       })
