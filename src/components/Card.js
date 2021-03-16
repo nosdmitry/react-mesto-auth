@@ -1,16 +1,16 @@
 import React from 'react';
 import { CurrentUserContext } from '../context/CurrentUserContext';
 
-function Card(props) {
+function Card({ card, openImage }) {
 
   const currentUser = React.useContext(CurrentUserContext);
   
   function handlePopup() {
-    props.openImage(props);
+    openImage(card);
   }
 
-  const isOwner = currentUser._id === props.owner._id;
-  const isLiked = props.likes.some(i => i._id === currentUser._id);
+  const isOwner = currentUser._id === card.owner._id;
+  const isLiked = card.likes.some(i => i._id === currentUser._id);
   const cardLikeButtonClassName = !isLiked ? 'galery__heart' : 'galery__heart galery__heart_active';
 
   return (
@@ -22,8 +22,8 @@ function Card(props) {
         }`} 
         aria-label="Delete_card"
       ></button>
-      <img onClick={ handlePopup } src={ props.link } alt={ props.name } className="galery__img" /> 
-      <h2 className="galery__text">{ props.name }</h2>
+      <img onClick={ handlePopup } src={ card.link } alt={ card.name } className="galery__img" /> 
+      <h2 className="galery__text">{ card.name }</h2>
       <div className="galery__likes-wrap">
         <button 
           type="button" 
@@ -31,7 +31,7 @@ function Card(props) {
           className={ cardLikeButtonClassName }
         ></button>
         <div className="galery__heart galery__heart_loading galery__heart_visible_hidden"></div>
-        <span className="galery__likes-counter">{ props.likes.length }</span>
+        <span className="galery__likes-counter">{ card.likes.length }</span>
       </div> 
     </>
   );

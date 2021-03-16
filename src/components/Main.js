@@ -57,12 +57,14 @@ function Main(props) {
                 return (
                   <article key={ card._id } className="galery__card">
                     <Card 
-                      id={ card._id }
-                      name={ card.name }
-                      link={ card.link }
-                      likes={ card.likes }
-                      owner={ card.owner }
+                      card={ card }
                       openImage={ props.onCardClick }
+                      // id={ card._id }
+                      // name={ card.name }
+                      // link={ card.link }
+                      // likes={ card.likes }
+                      // owner={ card.owner }
+                      // openImage={ props.onCardClick }
                     />
                   </article>
                 );
