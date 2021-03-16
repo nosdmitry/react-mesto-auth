@@ -20,6 +20,16 @@ function Main(props) {
       .catch(err => console.log('Cards data error: ', err));
   }, []);
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+    api.handleCardLikeStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards(state => state.map((c) => c._id === card._id ? newCard : c));
+      })
+      .catch(err => console.log('#### Handle Like Error ####', err));
+  }
+
   return (
     <main>
       <section className="profile">
@@ -59,6 +69,7 @@ function Main(props) {
                     <Card 
                       card={ card }
                       openImage={ props.onCardClick }
+                      onCardLike={ handleCardLike }
                       // id={ card._id }
                       // name={ card.name }
                       // link={ card.link }

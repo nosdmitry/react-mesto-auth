@@ -1,9 +1,13 @@
 import React from 'react';
 import { CurrentUserContext } from '../context/CurrentUserContext';
 
-function Card({ card, openImage }) {
+function Card({ card, openImage, onCardLike }) {
 
   const currentUser = React.useContext(CurrentUserContext);
+
+  function handleCardLike() {
+    onCardLike(card);
+  }
   
   function handlePopup() {
     openImage(card);
@@ -26,6 +30,7 @@ function Card({ card, openImage }) {
       <h2 className="galery__text">{ card.name }</h2>
       <div className="galery__likes-wrap">
         <button 
+          onClick={ handleCardLike }
           type="button" 
           aria-label="Like" 
           className={ cardLikeButtonClassName }

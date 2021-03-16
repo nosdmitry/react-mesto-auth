@@ -6,7 +6,7 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import React from 'react';
 import api from '../utils/Api';
-import { CurrentUserContext, currentUser } from '../context/CurrentUserContext';
+import { CurrentUserContext } from '../context/CurrentUserContext';
 
 function App() {
 
@@ -21,7 +21,7 @@ function App() {
     api.getUserInfo()
       .then(data => setCurrentUser(data))
       .catch(err => console.log('#####Error: user data; ', err));
-  });
+  }, []);
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
