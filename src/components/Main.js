@@ -57,9 +57,11 @@ function Main(props) {
                 return (
                   <article key={ card._id } className="galery__card">
                     <Card 
+                      id={ card._id }
                       name={ card.name }
                       link={ card.link }
-                      likes={ card.likes.length }
+                      likes={ card.likes }
+                      owner={ card.owner }
                       openImage={ props.onCardClick }
                     />
                   </article>
