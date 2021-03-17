@@ -16,6 +16,8 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpened, setIsEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(false);
+  const [cards, setCards] = React.useState([]);
+  const [loadingSpinner, setLoadingSpinner] = React.useState(true);
 
   const [currentUser, setCurrentUser] = React.useState(false);
 
@@ -65,6 +67,46 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setSelectedCard(false);
   }  
+
+
+
+
+  React.useEffect(() => {
+    api.getAllCards()
+      .then(data => {
+        setCards(data);
+        setLoadingSpinner(false);
+      })
+      .catch(err => console.log('Cards data error: ', err));
+  }, []);
+
+  
+  function handleCardDelete(card) {
+    console.log('Delete button clicked!', card);
+    api.deleteCard(card._id)
+      .then((fetchData) => {
+        setCards(state => {
+          return state.filter((c) => {
+            return c._id === card._id ? null : c;
+          })
+        });
+      })
+      .catch(err => console.log('#### Delete card error ####', err));
+  }
+
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    api.handleCardLikeStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards(state => {
+          return state.map((c) => {
+            return c._id === card._id ? newCard : c;
+          });
+        });
+      })
+      .catch(err => console.log('#### Handle Like Error ####', err));
+  }
   
   return (
     <CurrentUserContext.Provider value={ currentUser }>
@@ -76,6 +118,10 @@ function App() {
           onAddPlace={ handleAddPlaceClick } 
           onEditAvatar={ handleEditAvatarClick } 
           onCardClick={ handleCardClick }
+          cards={ cards }
+          loadingSpinner={ loadingSpinner }
+          onCardLike={ handleCardLike }
+          onCardDelete={ handleCardDelete }
         />
         <Footer />
       </div>

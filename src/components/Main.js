@@ -1,50 +1,12 @@
 import React from 'react';
 import { CurrentUserContext } from '../context/CurrentUserContext';
-import api from '../utils/Api';
 import Card from './Card';
 
 function Main(props) {
 
   //const [userAvatar, setUserAvatar] = React.useState('./static/media/avatar-loader.7741db8b.gif');
-  const [cards, setCards] = React.useState([]);
-  const [loadingSpinner, setLoadingSpinner] = React.useState(true);
 
   const currentUser = React.useContext(CurrentUserContext);
-
-  React.useEffect(() => {
-    api.getAllCards()
-      .then(data => {
-        setCards(data);
-        setLoadingSpinner(false);
-      })
-      .catch(err => console.log('Cards data error: ', err));
-  }, []);
-
-  function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
-    api.handleCardLikeStatus(card._id, !isLiked)
-      .then((newCard) => {
-        setCards(state => {
-          return state.map((c) => {
-            return c._id === card._id ? newCard : c;
-          });
-        });
-      })
-      .catch(err => console.log('#### Handle Like Error ####', err));
-  }
-
-  function handleCardDelete(card) {
-    console.log('Delete button clicked!', card);
-    api.deleteCard(card._id)
-      .then((fetchData) => {
-        setCards(state => {
-          return state.filter((c) => {
-            return c._id === card._id ? null : c;
-          })
-        });
-      })
-      .catch(err => console.log('#### Delete card error ####', err));
-  }
 
   return (
     <main>
@@ -77,16 +39,16 @@ function Main(props) {
       <section className="galery galery_margins" aria-label="Галерея">
         <div className="galery__cards">
           {
-            loadingSpinner 
+            props.loadingSpinner 
               ? (<div className="galery__card galery__card_loading"></div>)
-              : cards.map((card) => {
+              : props.cards.map((card) => {
                 return (
                   <article key={ card._id } className="galery__card">
                     <Card 
                       card={ card }
                       openImage={ props.onCardClick }
-                      onCardLike={ handleCardLike }
-                      onCardDelete={ handleCardDelete }
+                      onCardLike={ props.onCardLike }
+                      onCardDelete={ props.onCardDelete }
                       // id={ card._id }
                       // name={ card.name }
                       // link={ card.link }
