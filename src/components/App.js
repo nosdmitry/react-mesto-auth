@@ -4,6 +4,7 @@ import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 import ImagePopup from './ImagePopup';
 import React from 'react';
 import api from '../utils/Api';
@@ -49,6 +50,15 @@ function App() {
       .catch(err => console.log('#### Edit user failed ####', err));
   }
 
+  function handleUpdateAvatar(avatarLink) {
+    api.changeAvatar(avatarLink) 
+      .then(data => {
+        setCurrentUser(data);
+        closeAllPopups();
+      })
+      .catch(err => console.log('#### Avatar update falied ####', err));
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -81,26 +91,18 @@ function App() {
         onUpdateUser={ handleUpdateUser }
       />
 
-      <PopupWithForm 
-        name="change-avatar" 
-        title="Обновить аватар" 
-        submitName="Сохранить"
+      <EditAvatarPopup
         isOpen={ isEditAvatarPopupOpened }
         onClose={ closeAllPopups }
-      >
-        <label className="popup__form-field">
-          <input id="user-avatar" type="url" name="popup_description" placeholder="Ссылка на картинку"
-            className="popup__input popup__input_type_image-link" required />
-          <span className="user-avatar-error popup__error"></span>
-        </label>
-      </PopupWithForm>
+        onUpdateAvatar={ handleUpdateAvatar }
+      />
 
       <PopupWithForm 
         name="cards-add-form" 
         title="Новое место" 
         submitName="Создать"
-        isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopups}
+        isOpen={ isAddPlacePopupOpen }
+        onClose={ closeAllPopups }
       >
         <label className="popup__form-field">
           <input id="place-name" type="text" name="popup_name" minLength="2" maxLength="30" placeholder="Название"
@@ -118,7 +120,7 @@ function App() {
         name="card-delete" 
         title="Вы уверены?" 
         submitName="Удалить" 
-        onClose={closeAllPopups}
+        onClose={ closeAllPopups }
       />
     </CurrentUserContext.Provider>
   );
