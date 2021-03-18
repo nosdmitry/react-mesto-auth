@@ -20,12 +20,25 @@ function App() {
   const [cards, setCards] = React.useState([]);
   const [loadingSpinner, setLoadingSpinner] = React.useState(true);
 
-  const [currentUser, setCurrentUser] = React.useState(false);
+  const [currentUser, setCurrentUser] = React.useState({
+    avatar: './static/media/avatar-loader.7741db8b.gif',
+    name: 'Загрузка',
+    about: 'Загрузка'
+  });
 
   React.useEffect(() => {
     api.getUserInfo()
       .then(data => setCurrentUser(data))
       .catch(err => console.log('#####Error: user data; ', err));
+  }, []);
+
+  React.useEffect(() => {
+    api.getAllCards()
+      .then(data => {
+        setCards(data);
+        setLoadingSpinner(false);
+      })
+      .catch(err => console.log('Cards data error: ', err));
   }, []);
 
   const handleCardClick = (card) => {
@@ -37,7 +50,6 @@ function App() {
   }
 
   function handleAddPlaceClick() {
-    console.log('add place popup open', isAddPlacePopupOpen)
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
@@ -70,21 +82,7 @@ function App() {
     setSelectedCard(false);
   }  
 
-
-
-
-  React.useEffect(() => {
-    api.getAllCards()
-      .then(data => {
-        setCards(data);
-        setLoadingSpinner(false);
-      })
-      .catch(err => console.log('Cards data error: ', err));
-  }, []);
-
-  
   function handleCardDelete(card) {
-    console.log('Delete button clicked!', card);
     api.deleteCard(card._id)
       .then(() => {
         setCards(state => {
@@ -95,7 +93,6 @@ function App() {
       })
       .catch(err => console.log('#### Delete card error ####', err));
   }
-
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
