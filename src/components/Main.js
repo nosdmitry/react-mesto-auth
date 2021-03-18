@@ -29,7 +29,7 @@ function Main(props) {
           <p className="profile__subtitle" aria-label="Описание">{currentUser.about}</p>
         </div>
         <button
-          onClick={props.onAddPlace}
+          onClick={ props.onAddPlace }
           type="button"
           aria-label="Add_img"
           className="profile__add-card-button">
@@ -49,12 +49,6 @@ function Main(props) {
                       openImage={ props.onCardClick }
                       onCardLike={ props.onCardLike }
                       onCardDelete={ props.onCardDelete }
-                      // id={ card._id }
-                      // name={ card.name }
-                      // link={ card.link }
-                      // likes={ card.likes }
-                      // owner={ card.owner }
-                      // openImage={ props.onCardClick }
                     />
                   </article>
                 );

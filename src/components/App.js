@@ -5,6 +5,7 @@ import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup';
 import React from 'react';
 import api from '../utils/Api';
@@ -36,6 +37,7 @@ function App() {
   }
 
   function handleAddPlaceClick() {
+    console.log('add place popup open', isAddPlacePopupOpen)
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
@@ -84,7 +86,7 @@ function App() {
   function handleCardDelete(card) {
     console.log('Delete button clicked!', card);
     api.deleteCard(card._id)
-      .then((fetchData) => {
+      .then(() => {
         setCards(state => {
           return state.filter((c) => {
             return c._id === card._id ? null : c;
@@ -107,12 +109,23 @@ function App() {
       })
       .catch(err => console.log('#### Handle Like Error ####', err));
   }
+
+  function handleAddPlaceSubmit(card) {
+    api.addNewCard(card)
+      .then(newCard => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch(err => console.log('#### Add card failed ####', err));
+  }
   
   return (
     <CurrentUserContext.Provider value={ currentUser }>
       
       <div className="page">
+
         <Header />
+
         <Main 
           onEditProfile={ handleEditProfileClick } 
           onAddPlace={ handleAddPlaceClick } 
@@ -123,7 +136,9 @@ function App() {
           onCardLike={ handleCardLike }
           onCardDelete={ handleCardDelete }
         />
+
         <Footer />
+
       </div>
 
       <ImagePopup 
@@ -143,24 +158,11 @@ function App() {
         onUpdateAvatar={ handleUpdateAvatar }
       />
 
-      <PopupWithForm 
-        name="cards-add-form" 
-        title="Новое место" 
-        submitName="Создать"
+      <AddPlacePopup 
         isOpen={ isAddPlacePopupOpen }
         onClose={ closeAllPopups }
-      >
-        <label className="popup__form-field">
-          <input id="place-name" type="text" name="popup_name" minLength="2" maxLength="30" placeholder="Название"
-            className="popup__input popup__input_type_card-name" required />
-          <span className="place-name-error popup__error"></span>
-        </label>
-        <label className="popup__form-field">
-          <input id="place-url" type="url" name="popup_description" placeholder="Ссылка на картинку"
-            className="popup__input popup__input_type_image-link" required />
-          <span className="place-url-error popup__error"></span>
-        </label>
-      </PopupWithForm>
+        onAddPlace={ handleAddPlaceSubmit }
+      />
 
       <PopupWithForm 
         name="card-delete" 
@@ -168,6 +170,7 @@ function App() {
         submitName="Удалить" 
         onClose={ closeAllPopups }
       />
+
     </CurrentUserContext.Provider>
   );
 }
