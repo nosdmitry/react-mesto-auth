@@ -8,8 +8,8 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup';
 import React from 'react';
-import api from '../utils/Api';
-import { CurrentUserContext } from '../context/CurrentUserContext';
+import api from '../utils/api';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
 
