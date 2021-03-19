@@ -1,6 +1,7 @@
 import React from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Card from './Card';
+import Loader from './Loader';
 
 function Main(props) {
 
@@ -38,17 +39,16 @@ function Main(props) {
         <div className="galery__cards">
           {
             props.loadingSpinner 
-              ? (<div className="galery__card galery__card_loading"></div>)
+              ? (<Loader />)
               : props.cards.map((card) => {
                 return (
-                  <article key={ card._id } className="galery__card">
                     <Card 
+                      key={ card._id }
                       card={ card }
                       openImage={ props.onCardClick }
                       onCardLike={ props.onCardLike }
                       onCardDelete={ props.onCardDelete }
                     />
-                  </article>
                 );
               })
           }

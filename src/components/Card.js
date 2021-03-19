@@ -22,7 +22,7 @@ function Card({ card, openImage, onCardLike, onCardDelete }) {
   const cardLikeButtonClassName = !isLiked ? 'galery__heart' : 'galery__heart galery__heart_active';
 
   return (
-    <>
+    <article className="galery__card">
       <button 
         onClick={ handleDeleteClick }
         type="button" 
@@ -43,7 +43,7 @@ function Card({ card, openImage, onCardLike, onCardDelete }) {
         <div className="galery__heart galery__heart_loading galery__heart_visible_hidden"></div>
         <span className="galery__likes-counter">{ card.likes.length }</span>
       </div> 
-    </>
+    </article>
   );
 }
 
