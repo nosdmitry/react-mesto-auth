@@ -19,7 +19,9 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
     onAddPlace({
       name: cardName,
       link: cardLink
-    })
+    });
+    setCardName('');
+    setCardLink('');
   }
 
   return (
