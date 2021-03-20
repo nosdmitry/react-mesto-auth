@@ -47,7 +47,7 @@ function Main(props) {
                       card={ card }
                       openImage={ props.onCardClick }
                       onCardLike={ props.onCardLike }
-                      onCardDelete={ props.onCardDelete }
+                      onDeleteCardClick={ props.onDeleteCardClick }
                     />
                 );
               })

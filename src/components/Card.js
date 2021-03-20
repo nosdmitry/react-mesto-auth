@@ -1,12 +1,12 @@
 import React from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function Card({ card, openImage, onCardLike, onCardDelete }) {
+function Card({ card, openImage, onCardLike, onDeleteCardClick }) {
 
   const currentUser = React.useContext(CurrentUserContext);
 
-  function handleDeleteClick() {
-    onCardDelete(card);
+  function openDeletePopup() {
+    onDeleteCardClick(card);
   }
 
   function handleCardLike() {
@@ -24,7 +24,7 @@ function Card({ card, openImage, onCardLike, onCardDelete }) {
   return (
     <article className="galery__card">
       <button 
-        onClick={ handleDeleteClick }
+        onClick={ openDeletePopup }
         type="button" 
         className={`galery__delete-card-button galery__delete-card-button${
           isOwner ? '' : '_visible_hidden'
