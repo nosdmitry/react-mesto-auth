@@ -1,4 +1,21 @@
-# Getting Started with Create React App
+# Проект Mesto 
+
+Это точная копия проекта [Mesto](https://github.com/nosdmitry/mesto) портированная на React
+
+## Планы на доработку
+
+1. Анимация нажатия на кнопку лайк
+2. Изменение значений кнопок попапов при отправки запросов на сервер
+3. Авторизация и регистрация
+4. Анимация удаления карточек
+
+## Установка
+
+1. Скачать проект
+2. Запустить `yarn start` либо `npm run start`
+
+________________ 
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
