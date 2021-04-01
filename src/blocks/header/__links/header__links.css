@@ -1,0 +1,8 @@
+.header__links {
+  text-decoration: none;
+  align-self: center;
+  color: #fff;
+  font-size: 18px;
+  line-height: calc(22 / 18);
+  flex: 0 0 auto;
+}

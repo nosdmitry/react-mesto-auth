@@ -6,6 +6,8 @@ function Header() {
       <a href="./index.html" className="header__logo-link" target="_self">
         <img src={logo} alt="Логотип" className="header__logo" />
       </a>
+      <a href="#" className="header__links">example@mail.ru</a>
+      <a href="#" className="header__links header__links_type_paddings">Вход</a>
     </header>
   );
 }

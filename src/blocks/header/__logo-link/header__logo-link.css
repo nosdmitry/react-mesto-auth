@@ -1,6 +1,7 @@
 .header__logo-link {
   margin: 0 0 0 27px;
   box-sizing: border-box;
+  flex: 1 0 auto;
 }
 
 @media (min-width: 880px) {
