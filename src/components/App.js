@@ -13,6 +13,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Error from './Error';
 import { Route, Switch } from 'react-router';
 import Register from './Register';
+import Login from './Login';
 
 function App() {
 
@@ -154,6 +155,11 @@ function App() {
           <Route path="/singup">
             <Register />
           </Route>
+
+          <Route path="/singin">
+            <Login />
+          </Route>
+            
           
           <Route path="*">
             <Error />

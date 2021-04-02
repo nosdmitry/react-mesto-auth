@@ -11,3 +11,9 @@
 .header__links:hover {
   opacity: .6;
 }
+
+@media (max-width: 880px) {
+  .header__links {
+    margin-right: 30px;
+  }
+}
