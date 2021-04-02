@@ -33,7 +33,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       onClose={ onClose }
       onSubmit={ handleSubmitClick }
     >
-      <label className="popup__form-field">
+      <label className="form__form-field">
         <input 
           id="place-name" 
           type="text" 
@@ -41,25 +41,25 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           minLength="2" 
           maxLength="30" 
           placeholder="Название"
-          className="popup__input popup__input_type_card-name" 
+          className="form__input" 
           onChange={ handleCardName }
           value={ cardName || '' }
           required 
         />
-        <span className="place-name-error popup__error"></span>
+        <span className="place-name-error form__error"></span>
       </label>
-      <label className="popup__form-field">
+      <label className="form__form-field">
         <input 
           id="place-url" 
           type="url" 
           name="popup_description" 
           placeholder="Ссылка на картинку"
-          className="popup__input popup__input_type_image-link" 
+          className="form__input" 
           onChange={ handleCardLink }
           value={ cardLink || '' }
           required 
         />
-        <span className="place-url-error popup__error"></span>
+        <span className="place-url-error form__error"></span>
       </label>
     </PopupWithForm>
   );

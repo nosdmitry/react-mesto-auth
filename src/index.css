@@ -19,7 +19,6 @@
 @import url(./blocks/popup/__input/_type/popup__input_type_card-name.css);
 @import url(./blocks/popup/__submit-button/_add/popup__submit-button_add-card.css);
 @import url(./blocks/popup/__exit-button/_place/popup__exit-button_place_add-form.css);
-@import url(./blocks/popup/__form-field/popup__form-field.css);
 @import url(./blocks/popup/__error/popup__error.css);
 @import url(./blocks/popup/__input/_type/popup__input_type_error.css);
 @import url(./blocks/popup/__submit-button/_type/popup__submit-button_type_disabled.css);
@@ -28,7 +27,13 @@
 @import url(./blocks/form/form.css);
 @import url(./blocks/form/__input/form__input.css);
 @import url(./blocks/form/__form-field/form__form-field.css);
+@import url(./blocks/form/__input/_type/form__input_type_sign.css);
+@import url(./blocks/form/__input/_type/form__input_type_password.css);
 @import url(./blocks/form/__error/_visible/form__error_visible.css);
+@import url(./blocks/form/__submit/form__submit.css);
+@import url(./blocks/form/__submit/_type/form__submit_type_sign.css);
+@import url(./blocks/form/__submit/_type/form__submit_type_popup.css);
+@import url(./blocks/form/__input/_type/form__input_type_sign.css);
 
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
@@ -75,7 +80,6 @@
 @import url(./blocks/sign/__title/sign__title.css);
 @import url(./blocks/sign/__reg-question/sign__reg-question.css);
 @import url(./blocks/sign/__link/sign__link.css);
-@import url(./blocks/sign/__form/sign__form.css);
 
 @import url(./blocks/footer/footer.css);
 @import url(./blocks/footer/__copyright/footer__copyright.css);

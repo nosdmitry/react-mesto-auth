@@ -1,8 +1,7 @@
 .sign {
   margin: 0 auto;
-  margin-top: 60px;
+  margin-top: 40px;
   max-width: 358px;
-  border: 1px solid red;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
