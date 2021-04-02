@@ -10,6 +10,9 @@ import ImagePopup from './ImagePopup';
 import ConfirmationPopup from './ConfirmationPopup';
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import Error from './Error';
+import { Route, Switch } from 'react-router';
+import Register from './Register';
 
 function App() {
 
@@ -133,18 +136,32 @@ function App() {
       <div className="page">
 
         <Header />
+        <Switch>
+          <Route exact path="/">
+            <Main 
+                cards={ cards }
+                loadingSpinner={ loadingSpinner }
+                onEditProfile={ handleEditProfileClick } 
+                onAddPlace={ handleAddPlaceClick } 
+                onEditAvatar={ handleEditAvatarClick } 
+                onCardClick={ handleCardClick }
+                onCardLike={ handleCardLike }
+                onDeleteCardClick={ handleDeleteCardClick }      
+                setIsDeleteCardPopupOpened={ setIsDeleteCardPopupOpened }    
+              />
+          </Route>
 
-        <Main 
-          cards={ cards }
-          loadingSpinner={ loadingSpinner }
-          onEditProfile={ handleEditProfileClick } 
-          onAddPlace={ handleAddPlaceClick } 
-          onEditAvatar={ handleEditAvatarClick } 
-          onCardClick={ handleCardClick }
-          onCardLike={ handleCardLike }
-          onDeleteCardClick={ handleDeleteCardClick }      
-          setIsDeleteCardPopupOpened={ setIsDeleteCardPopupOpened }    
-        />
+          <Route path="/singup">
+            <Register />
+          </Route>
+          
+          <Route path="*">
+            <Error />
+          </Route>
+
+        </Switch>
+        
+          
 
         <Footer />
 

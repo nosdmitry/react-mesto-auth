@@ -38,7 +38,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       onClose={ onClose }
       onSubmit={ handleSubmit }
     >
-      <label className="popup__form-field">
+      <label className="form__form-field">
         <input 
           id="user-name" 
           type="text" 
@@ -46,14 +46,14 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
           minLength="2" 
           maxLength="40" 
           placeholder="Имя"
-          className="popup__input popup__input_type_name" 
-          value={ name  }
+          className="form__input" 
+          value={ name }
           onChange={ handleName }
           required 
         />
-        <span className="user-name-error popup__error"></span>
+        <span className="user-name-error form__error"></span>
       </label>
-      <label className="popup__form-field">
+      <label className="form__form-field">
         <input 
           id="user-description" 
           type="text" 
@@ -61,12 +61,12 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
           minLength="2" 
           maxLength="200"
           placeholder="Род деятельности" 
-          className="popup__input popup__input_type_description" 
+          className="form__input" 
           value={ description }
           onChange={ handleDescription }
           required 
         />
-        <span className="user-description-error popup__error"></span>
+        <span className="user-description-error form__error"></span>
       </label>
     </PopupWithForm>
   );

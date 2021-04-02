@@ -3,6 +3,11 @@
   align-self: center;
   color: #fff;
   font-size: 18px;
-  line-height: calc(22 / 18);
+  line-height: 22px;
   flex: 0 0 auto;
+  transition: opacity .1s linear;
+}
+
+.header__links:hover {
+  opacity: .6;
 }

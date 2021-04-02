@@ -10,11 +10,11 @@ function PopupWithForm(props) {
       <form 
         onSubmit={ props.onSubmit }
         name={`popup_form_${props.name}`} 
-        className="popup__form popup__form_edit_peronal-data" 
+        className="form popup__form" 
         noValidate
       >
         { props.children }
-        <button type="submit" name="submit-edit-profile" className="popup__submit-button">{props.submitName}</button>
+        <button type="submit" name="submit-edit-profile" className="form__submit popup__submit-button">{props.submitName}</button>
       </form>
       </div>
     </div>
