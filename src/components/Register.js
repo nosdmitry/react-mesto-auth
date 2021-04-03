@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import * as userAuth from "../utils/userAuth";
 
 
-function Register() {
+function Register(props) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
 
   function handleEmail(evt) {
     setEmail(evt.target.value);
-    console.log(email)
   }
 
   function handlePassword(evt) {
@@ -19,7 +19,17 @@ function Register() {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    userAuth.register(email, password);
+    userAuth.register(email, password)
+      .then(res => {
+        if(res) {
+          setMessage('');
+          // () => {
+          //   props.history.push('/signin');
+          // }
+        } else {
+          setMessage('Что-то пошло не так');
+        }
+      });
     console.log('email', email);
     console.log('Password', password);
   }
@@ -27,6 +37,8 @@ function Register() {
   return (
     <section className="sign">
       <h3 className="sign__title">Регистрация</h3>
+      <h3 className="sign__title">{ message != '' ? message : '' }</h3>
+      
         <form className="form" onSubmit={ handleSubmit }>
           <label className="form__form-field">
             <input
@@ -64,4 +76,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default withRouter(Register);
