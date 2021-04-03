@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import SignForm from "./SignForm";
 import * as userAuth from '../utils/userAuth';
+import { useHistory, withRouter } from "react-router";
 
-function Login() {
-  
+function Login() {  
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -20,7 +20,7 @@ function Login() {
     console.log('email: ', email);
     console.log('password: ', password);
     userAuth.authorization(email, password);
-  }
+  }  
 
   return (
     <section className="sign">
@@ -58,4 +58,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default withRouter(Login);

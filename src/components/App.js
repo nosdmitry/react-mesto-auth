@@ -19,6 +19,9 @@ import * as userAuth from '../utils/userAuth';
 
 function App(props) {
 
+  const [userData, setUserData] = React.useState({
+    email: 'test'
+  })
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -35,10 +38,10 @@ function App(props) {
   });
 
   React.useEffect(() => {
+    tockenCheck();
     api.getUserInfo()
       .then(data => setCurrentUser(data))
       .catch(err => console.log('#####Error: user data; ', err));
-    componentDidMount();
   }, []);
 
   React.useEffect(() => {
@@ -135,18 +138,16 @@ function App(props) {
       .catch(err => console.log('#### Add card failed ####', err));
   }
 
-  function componentDidMount() {
-    tockenCheck();
-  }
-
   function tockenCheck() {
     console.log(localStorage);
     if(localStorage.getItem('token')) {
-      const jwt = localStorage.getItem('token');
-      if(jwt) {
-        userAuth.getContent(jwt).then((res) => {
+      const token = localStorage.getItem('token');
+      if(token) {
+        userAuth.getContent(token).then((res) => {
           if(res) {
             setIsLoggedIn(true);
+            console.log(res.data.email);
+            setUserData({email: res.data.email});
             props.history.push('/');
           }
         });
@@ -156,8 +157,6 @@ function App(props) {
   
   return (
     <CurrentUserContext.Provider value={ currentUser }>
-
-      
       
       <div className="page">
 

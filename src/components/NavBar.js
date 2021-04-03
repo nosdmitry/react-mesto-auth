@@ -1,11 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function NavBar() {
+
+  const history = useHistory();
+
+  function signOut() {
+    localStorage.removeItem('token');
+    history.push('/signin');
+  }
+
   return (
     <ul className="navbar">
       <li className="navbar__item">
         <Link
-          to="/singin"
+          to="/signin"
           className="navbar__link"
         >
           Вход
@@ -13,19 +21,18 @@ function NavBar() {
       </li>
       <li className="navbar__item">
         <Link
-
-          to="/singup"
+          to="/signup"
           className="navbar__link"
         >
           Регистрация
         </Link>
       </li>
       <li className="navbar__item">
-        <Link className="navbar__link">
+        <Link onClick={ signOut } className="navbar__link">
           Выйти
         </Link>
       </li>
-    </ul >
+    </ul>
   );
 }
 
