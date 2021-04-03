@@ -10,13 +10,12 @@ function NavBar({ isLoggedIn, userData, location }) {
   }
 
   function showCurrentLink() {
-    console.log(location.pathname);
     if (location.pathname === '/signup') {
       return (
         <li className="navbar__item">
           <Link to="/signin" className="navbar__link">
             Вход
-                </Link>
+          </Link>
         </li>
       );
     } else {
@@ -38,12 +37,12 @@ function NavBar({ isLoggedIn, userData, location }) {
           ? (
             <>
               <li className="navbar__item">
-                <Link className="navbar__link">
+                <Link to="#" className="navbar__link">
                   {userData.email}
                 </Link>
               </li>
               <li className="navbar__item">
-                <Link onClick={signOut} className="navbar__link">
+                <Link to="/" onClick={signOut} className="navbar__link">
                   Выйти
                 </Link>
               </li>

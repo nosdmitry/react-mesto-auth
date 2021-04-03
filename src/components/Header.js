@@ -6,8 +6,6 @@ function Header(props) {
 
   const location = useLocation();
 
-  console.log('location: ', location);
-
   return (
     <header className="header">
       <a href="./" className="header__logo-link" target="_self">

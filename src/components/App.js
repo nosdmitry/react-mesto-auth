@@ -11,7 +11,7 @@ import ConfirmationPopup from './ConfirmationPopup';
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Error from './Error';
-import { Redirect, Route, Switch, withRouter } from 'react-router';
+import { Route, Switch, withRouter } from 'react-router';
 import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from './ProtectedRoute';
@@ -144,7 +144,6 @@ function App(props) {
   }
 
   function tockenCheck() {
-    console.log(localStorage);
     if(localStorage.getItem('token')) {
       const token = localStorage.getItem('token');
       if(token) {
