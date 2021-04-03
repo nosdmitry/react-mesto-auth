@@ -59,7 +59,8 @@ function App(props) {
   }
 
   function handleLoginStatus() {
-    setIsLoggedIn(true);
+    setIsLoggedIn(!isLoggedIn);
+    console.log('LoginStatus changed: ', isLoggedIn)
   }
   
   function handleEditProfileClick() {
@@ -166,6 +167,7 @@ function App(props) {
 
         <Header 
           isLoggedIn={ isLoggedIn }
+          handleLoginStatus={ handleLoginStatus }
           userData={ userData }
         />
         

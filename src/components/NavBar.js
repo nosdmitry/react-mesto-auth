@@ -1,12 +1,12 @@
 import { Link, useHistory } from "react-router-dom";
 
-function NavBar({ isLoggedIn, userData, location }) {
+function NavBar({ isLoggedIn, handleLoginStatus, userData, location }) {
 
   const history = useHistory();
 
   function signOut() {
     localStorage.removeItem('token');
-    history.push('/signin');
+    handleLoginStatus();
   }
 
   function showCurrentLink() {
