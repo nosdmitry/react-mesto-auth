@@ -24,7 +24,6 @@ export const authorization = (email, password) => {
     .then((data) => {
       localStorage.setItem('token', data.token);
     })
-    .catch(err => console.log(err))
 }
 
 export const getContent = (token) => {

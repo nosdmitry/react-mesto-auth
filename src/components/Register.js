@@ -10,15 +10,6 @@ function Register(props) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [infoTolltip, setInfoTooltip] = useState({
-    isOpen: false,
-    src: '',
-    title: "Вы успешно зарегистрировались!",
-  });
-
-  function handleCloseButton() {
-    setInfoTooltip({ isOpen: false });
-  }
 
   function handleEmail(evt) {
     setEmail(evt.target.value);
@@ -33,20 +24,13 @@ function Register(props) {
     userAuth.register(email, password)
       .then(res => {
         if(res) {
-          setInfoTooltip({
-            isOpen: true,
-            src: regConfirmImg,
-            title: "Вы успешно зарегистрировались!"
-          })
+          props.handleTooltip(true, regConfirmImg, "Вы успешно зарегистрировались!");
           setTimeout(() => {
+            props.onClose();
             props.history.push('/signin');
           }, 2000);
         } else {
-          setInfoTooltip({
-            isOpen: true,
-            src: regFailedImg,
-            title: "Что-то пошло не так! Попробуйте ещё раз."
-          })
+          props.handleTooltip(true, regFailedImg, "Что-то пошло не так! Попробуйте ещё раз.")
         }
       });
     console.log('email', email);
@@ -57,10 +41,10 @@ function Register(props) {
     <section className="sign">
       <h3 className="sign__title">Регистрация</h3>
         {
-          infoTolltip.isOpen 
+          props.infoTolltip.isOpen 
             ? <InfoTooltip 
-                { ...infoTolltip }
-                handleCloseButton={ handleCloseButton }
+                { ...props.infoTolltip }
+                handleCloseButton={ props.onClose }
               />
             : null
         }

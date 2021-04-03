@@ -31,11 +31,15 @@ function App(props) {
   const [selectedCard, setSelectedCard] = React.useState(false);
   const [cards, setCards] = React.useState([]);
   const [loadingSpinner, setLoadingSpinner] = React.useState(true);
-
   const [currentUser, setCurrentUser] = React.useState({
     avatar: './static/media/avatar-loader.7741db8b.gif',
     name: 'Загрузка',
     about: 'Загрузка'
+  });
+  const [infoTolltip, setInfoTooltip] = React.useState({
+    isOpen: false,
+    src: '',
+    title: '',
   });
 
   React.useEffect(() => {
@@ -56,6 +60,14 @@ function App(props) {
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
+  }
+
+  function handleTooltip(status, src, title) {
+    setInfoTooltip({
+      isOpen: status,
+      src: src,
+      title: title
+    })
   }
 
   function handleLoginStatus() {
@@ -103,6 +115,10 @@ function App(props) {
     setIsEditAvatarPopupOpen(false);
     setIsDeleteCardPopupOpened(false);
     setSelectedCard(false);
+    setInfoTooltip({
+      isOpen: false,
+    }
+    )
   }  
 
   function handleDeleteConfirm(card) {
@@ -189,14 +205,23 @@ function App(props) {
             />
 
             <Route path="/signup">
-              <Register />
+              <Register
+                handleTooltip={ handleTooltip }
+                infoTolltip={ infoTolltip }
+                onClose={ closeAllPopups }
+              />
             </Route>
 
             <Route path="/signin">
               {
                 isLoggedIn  
                   ? <Redirect to="/" />
-                  : <Login handleLoginStatus={ handleLoginStatus } />
+                  : <Login 
+                      handleLoginStatus={ handleLoginStatus } 
+                      handleTooltip={ handleTooltip }
+                      infoTolltip={ infoTolltip }
+                      onClose={ closeAllPopups }
+                    />
               }
             </Route>
             
