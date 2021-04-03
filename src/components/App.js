@@ -11,7 +11,7 @@ import ConfirmationPopup from './ConfirmationPopup';
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Error from './Error';
-import { Route, Switch, withRouter } from 'react-router';
+import { Redirect, Route, Switch, withRouter } from 'react-router';
 import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from './ProtectedRoute';
@@ -193,22 +193,12 @@ function App(props) {
             </Route>
 
             <Route path="/signin">
-              <Login 
-                handleLoginStatus={ handleLoginStatus }
-              />
+              {
+                isLoggedIn  
+                  ? <Redirect to="/" />
+                  : <Login handleLoginStatus={ handleLoginStatus } />
+              }
             </Route>
-{/* 
-            <Route path="/singup">
-              <Register />
-            </Route>  
-
-            <Route path="/signin">
-              <Login />
-            </Route>
-
-            {/* <Route>
-            { isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" /> }
-            </Route> */} 
             
             <Route path="*">
               <Error />

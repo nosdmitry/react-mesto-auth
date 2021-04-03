@@ -26,7 +26,6 @@ function NavBar({ isLoggedIn, handleLoginStatus, userData, location }) {
           </Link>
         </li>
       );
-
     }
   }
 
