@@ -11,12 +11,14 @@ import ConfirmationPopup from './ConfirmationPopup';
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Error from './Error';
-import { Route, Switch } from 'react-router';
+import { Redirect, Route, Switch } from 'react-router';
 import Register from './Register';
 import Login from './Login';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
 
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpened, setIsEditAvatarPopupOpen] = React.useState(false);
@@ -137,35 +139,47 @@ function App() {
       <div className="page">
 
         <Header />
-        <Switch>
-          <Route exact path="/">
-            <Main 
-                cards={ cards }
-                loadingSpinner={ loadingSpinner }
-                onEditProfile={ handleEditProfileClick } 
-                onAddPlace={ handleAddPlaceClick } 
-                onEditAvatar={ handleEditAvatarClick } 
-                onCardClick={ handleCardClick }
-                onCardLike={ handleCardLike }
-                onDeleteCardClick={ handleDeleteCardClick }      
-                setIsDeleteCardPopupOpened={ setIsDeleteCardPopupOpened }    
+        
+          <Switch>  
+
+            <ProtectedRoute 
+              exact path="/"
+              isLoggedIn={ isLoggedIn }
+              cards={ cards }
+              loadingSpinner={ loadingSpinner }
+              onEditProfile={ handleEditProfileClick } 
+              onAddPlace={ handleAddPlaceClick } 
+              onEditAvatar={ handleEditAvatarClick } 
+              onCardClick={ handleCardClick }
+              onCardLike={ handleCardLike }
+              onDeleteCardClick={ handleDeleteCardClick }      
+              setIsDeleteCardPopupOpened={ setIsDeleteCardPopupOpened }
+              component={ Main }
+            />
+
+            {/* <Route exact path="/">
+              <Main 
+                    
               />
-          </Route>
+            </Route> */}
 
-          <Route path="/singup">
-            <Register />
-          </Route>
+            <Route path="/singup">
+              <Register />
+            </Route>  
 
-          <Route path="/singin">
-            <Login />
-          </Route>
+            <Route path="/signin">
+              <Login />
+            </Route>
+
+            <Route>
+            { isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" /> }
+            </Route>
             
-          
-          <Route path="*">
-            <Error />
-          </Route>
+            <Route path="*">
+              <Error />
+            </Route>
 
-        </Switch>
+          </Switch>
         
           
 

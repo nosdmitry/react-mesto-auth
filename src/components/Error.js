@@ -1,6 +1,6 @@
 function Error() {
   return (
-    <h2 class="error">404 Страница не найдена.</h2>
+    <h2 className="error">404 Страница не найдена.</h2>
   );
 }
 

@@ -21,6 +21,7 @@ function SignForm(props) {
                 form__input_type_password"
               placeholder="Пароль"
               type="password"
+              autoComplete="none"
             />
             <span className="password-name-error form__error"></span>
           </label>

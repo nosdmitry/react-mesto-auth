@@ -10,7 +10,7 @@ function Register() {
       />
       <span className="sign__reg-question">
         Уже зарегистрированы?&nbsp;
-        <Link to="/singin" className="sign__link">Войти</Link>
+        <Link to="/signin" className="sign__link">Войти</Link>
       </span>
     </section>
   );
