@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import SignForm from "./SignForm";
+import * as userAuth from "../utils/userAuth";
+
 
 function Register() {
 
@@ -18,6 +19,7 @@ function Register() {
 
   function handleSubmit(evt) {
     evt.preventDefault();
+    userAuth.register(email, password);
     console.log('email', email);
     console.log('Password', password);
   }
