@@ -219,6 +219,7 @@ function App(props) {
                   : <Login 
                       handleLoginStatus={ handleLoginStatus } 
                       handleTooltip={ handleTooltip }
+                      handleUserData={ setUserData }
                       infoTolltip={ infoTolltip }
                       onClose={ closeAllPopups }
                     />

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as userAuth from '../utils/userAuth';
-import { useHistory, withRouter } from "react-router";
+import { withRouter } from "react-router";
 import regFailedImg from "../images/reg_failed.svg";
 import InfoTooltip from "./InfoTooltip";
 
@@ -22,6 +22,7 @@ function Login(props) {
     userAuth.authorization(email, password)
       .then(() => {
         props.handleLoginStatus();
+        props.handleUserData({ email: email });
         props.history.push('/');
       })
       .catch(() => {
