@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Проект Mesto 
 
 Это точная копия проекта [Mesto](https://github.com/nosdmitry/mesto) портированная на React
