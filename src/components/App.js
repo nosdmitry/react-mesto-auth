@@ -11,12 +11,13 @@ import ConfirmationPopup from './ConfirmationPopup';
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Error from './Error';
-import { Redirect, Route, Switch } from 'react-router';
+import { Redirect, Route, Switch, withRouter } from 'react-router';
 import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from './ProtectedRoute';
+import * as userAuth from '../utils/userAuth';
 
-function App() {
+function App(props) {
 
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -37,6 +38,7 @@ function App() {
     api.getUserInfo()
       .then(data => setCurrentUser(data))
       .catch(err => console.log('#####Error: user data; ', err));
+    componentDidMount();
   }, []);
 
   React.useEffect(() => {
@@ -132,9 +134,30 @@ function App() {
       })
       .catch(err => console.log('#### Add card failed ####', err));
   }
+
+  function componentDidMount() {
+    tockenCheck();
+  }
+
+  function tockenCheck() {
+    console.log(localStorage);
+    if(localStorage.getItem('token')) {
+      const jwt = localStorage.getItem('token');
+      if(jwt) {
+        userAuth.getContent(jwt).then((res) => {
+          if(res) {
+            setIsLoggedIn(true);
+            props.history.push('/');
+          }
+        });
+      }
+    }
+  }
   
   return (
     <CurrentUserContext.Provider value={ currentUser }>
+
+      
       
       <div className="page">
 
@@ -156,12 +179,6 @@ function App() {
               setIsDeleteCardPopupOpened={ setIsDeleteCardPopupOpened }
               component={ Main }
             />
-
-            {/* <Route exact path="/">
-              <Main 
-                    
-              />
-            </Route> */}
 
             <Route path="/singup">
               <Register />
@@ -220,4 +237,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);

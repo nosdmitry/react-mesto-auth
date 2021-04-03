@@ -17,7 +17,6 @@ function Register(props) {
   });
 
   function handleCloseButton() {
-    console.log('ClickeD!');
     setInfoTooltip({ isOpen: false });
   }
 
@@ -48,7 +47,6 @@ function Register(props) {
             src: regFailedImg,
             title: "Что-то пошло не так! Попробуйте ещё раз."
           })
-          
         }
       });
     console.log('email', email);
