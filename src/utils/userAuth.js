@@ -8,15 +8,6 @@ export const register = ( email, password ) => {
     },
     body: JSON.stringify({ email, password })
   })
-    // .then((response) => {
-    //   try {
-    //     if(response.status === 201) {
-    //       return response.json();
-    //     }
-    //   } catch(e) {
-    //     return (e);
-    //   }
-    // })
     .then(res => res.ok ? res.json() : Promise.reject(`### ERRROR: ${res.status}`))
     .catch(err => console.log(err))
 }

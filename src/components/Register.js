@@ -1,13 +1,25 @@
-import React, { useState } from "react";
-import { Link, withRouter } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import * as userAuth from "../utils/userAuth";
+import regConfirmImg from "../images/reg_confirm.svg";
+import regFailedImg from "../images/reg_failed.svg";
+import InfoTooltip from "./InfoTooltip";
 
 
 function Register(props) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [infoTolltip, setInfoTooltip] = useState({
+    isOpen: false,
+    src: regConfirmImg,
+    title: "Вы успешно зарегистрировались!",
+  });
+
+  function handleCloseButton() {
+    console.log('ClickeD!');
+    setInfoTooltip({ isOpen: false });
+  }
 
   function handleEmail(evt) {
     setEmail(evt.target.value);
@@ -22,12 +34,17 @@ function Register(props) {
     userAuth.register(email, password)
       .then(res => {
         if(res) {
-          setMessage('');
-          // () => {
-          //   props.history.push('/signin');
-          // }
+          setInfoTooltip({
+            isOpen: true,
+            src: regConfirmImg,
+            title: "Вы успешно зарегистрировались!"
+          })
         } else {
-          setMessage('Что-то пошло не так');
+          setInfoTooltip({
+            isOpen: true,
+            src: regFailedImg,
+            title: "Что-то пошло не так! Попробуйте ещё раз."
+          })
         }
       });
     console.log('email', email);
@@ -37,8 +54,14 @@ function Register(props) {
   return (
     <section className="sign">
       <h3 className="sign__title">Регистрация</h3>
-      <h3 className="sign__title">{ message != '' ? message : '' }</h3>
-      
+        {
+          infoTolltip.isOpen 
+            ? <InfoTooltip 
+                { ...infoTolltip }
+                handleCloseButton={ handleCloseButton }
+              />
+            : null
+        }
         <form className="form" onSubmit={ handleSubmit }>
           <label className="form__form-field">
             <input

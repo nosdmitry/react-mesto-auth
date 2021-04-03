@@ -1,0 +1,7 @@
+.popup__image {
+  margin-top: 20px;
+  margin-bottom: 32px;
+  width: 120px;
+  height: 120px;
+  border: 1px solid black;
+}
