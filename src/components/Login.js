@@ -7,8 +7,6 @@ function Login(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const history = useHistory();
-
   function handleEmail(evt) {
     setEmail(evt.target.value);
   }
@@ -20,11 +18,8 @@ function Login(props) {
   function handleSubmit(evt) {
     evt.preventDefault();
     userAuth.authorization(email, password)
-      .then((res) => {
-        setTimeout(() => {
-          console.log('перенаправление');
-        }, 0)
-      })
+    props.handleLoginStatus();
+    props.history.push('/');
   }  
 
   return (

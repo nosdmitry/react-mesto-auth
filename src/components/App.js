@@ -57,6 +57,10 @@ function App(props) {
   const handleCardClick = (card) => {
     setSelectedCard(card);
   }
+
+  function handleLoginStatus() {
+    setIsLoggedIn(true);
+  }
   
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
@@ -155,10 +159,6 @@ function App(props) {
       }
     }
   }
-
-  function handleLoggeIn() {
-    
-  }
   
   return (
     <CurrentUserContext.Provider value={ currentUser }>
@@ -192,7 +192,9 @@ function App(props) {
             </Route>
 
             <Route path="/signin">
-              <Login />
+              <Login 
+                handleLoginStatus={ handleLoginStatus }
+              />
             </Route>
 {/* 
             <Route path="/singup">
