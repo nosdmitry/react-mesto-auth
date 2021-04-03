@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, Redirect, withRouter } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, withRouter } from "react-router-dom";
 import * as userAuth from "../utils/userAuth";
 import regConfirmImg from "../images/reg_confirm.svg";
 import regFailedImg from "../images/reg_failed.svg";
@@ -12,7 +12,7 @@ function Register(props) {
   const [password, setPassword] = useState('');
   const [infoTolltip, setInfoTooltip] = useState({
     isOpen: false,
-    src: regConfirmImg,
+    src: '',
     title: "Вы успешно зарегистрировались!",
   });
 
@@ -39,12 +39,16 @@ function Register(props) {
             src: regConfirmImg,
             title: "Вы успешно зарегистрировались!"
           })
+          setTimeout(() => {
+            props.history.push('/signin');
+          }, 2000);
         } else {
           setInfoTooltip({
             isOpen: true,
             src: regFailedImg,
             title: "Что-то пошло не так! Попробуйте ещё раз."
           })
+          
         }
       });
     console.log('email', email);
