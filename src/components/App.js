@@ -20,7 +20,7 @@ import * as userAuth from '../utils/userAuth';
 function App(props) {
 
   const [userData, setUserData] = React.useState({
-    email: 'test'
+    email: null
   })
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -160,7 +160,10 @@ function App(props) {
       
       <div className="page">
 
-        <Header />
+        <Header 
+          isLoggedIn={ isLoggedIn }
+          userData={ userData }
+        />
         
           <Switch>  
 

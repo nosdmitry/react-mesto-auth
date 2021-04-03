@@ -9,6 +9,7 @@ function Header(props) {
         <img src={logo} alt="Логотип" className="header__logo" />
       </a>
       <NavBar 
+        { ...props }
       />  
     </header>
   );

@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as userAuth from '../utils/userAuth';
 import { useHistory, withRouter } from "react-router";
 
 function Login() {  
+
+  const history = useHistory();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,6 +22,7 @@ function Login() {
     console.log('email: ', email);
     console.log('password: ', password);
     userAuth.authorization(email, password);
+    history.push('/');
   }  
 
   return (
