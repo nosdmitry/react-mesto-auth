@@ -33,8 +33,6 @@ function Register(props) {
           props.handleTooltip(true, regFailedImg, "Что-то пошло не так! Попробуйте ещё раз.")
         }
       });
-    console.log('email', email);
-    console.log('Password', password);
   }
 
   return (

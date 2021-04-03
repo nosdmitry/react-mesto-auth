@@ -1,4 +1,5 @@
 import '../index.css';
+import loadingImage from '../images/avatar-loader.gif';
 import React from 'react';
 import Header from './Header';
 import Main from './Main';
@@ -32,7 +33,7 @@ function App(props) {
   const [cards, setCards] = React.useState([]);
   const [loadingSpinner, setLoadingSpinner] = React.useState(true);
   const [currentUser, setCurrentUser] = React.useState({
-    avatar: './static/media/avatar-loader.7741db8b.gif',
+    avatar: loadingImage,
     name: 'Загрузка',
     about: 'Загрузка'
   });
@@ -42,7 +43,7 @@ function App(props) {
     title: '',
   });
 
-  React.useEffect(() => {
+  React.useEffect(() => {  
     tockenCheck();
     api.getUserInfo()
       .then(data => setCurrentUser(data))
@@ -62,11 +63,11 @@ function App(props) {
     setSelectedCard(card);
   }
 
-  function handleTooltip(status, src, title) {
+  function handleTooltip(isOpen, src, title) {
     setInfoTooltip({
-      isOpen: status,
-      src: src,
-      title: title
+      isOpen,
+      src,
+      title
     })
   }
 
