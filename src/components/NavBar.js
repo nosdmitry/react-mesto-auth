@@ -1,12 +1,34 @@
 import { Link, useHistory } from "react-router-dom";
 
-function NavBar({ isLoggedIn, userData }) {
+function NavBar({ isLoggedIn, userData, location }) {
 
   const history = useHistory();
 
   function signOut() {
     localStorage.removeItem('token');
     history.push('/signin');
+  }
+
+  function showCurrentLink() {
+    console.log(location.pathname);
+    if (location.pathname === '/signup') {
+      return (
+        <li className="navbar__item">
+          <Link to="/signin" className="navbar__link">
+            Вход
+                </Link>
+        </li>
+      );
+    } else {
+      return (
+        <li className="navbar__item">
+          <Link to="/signup" className="navbar__link">
+            Регистрация
+          </Link>
+        </li>
+      );
+
+    }
   }
 
   return (
@@ -16,8 +38,8 @@ function NavBar({ isLoggedIn, userData }) {
           ? (
             <>
               <li className="navbar__item">
-                <Link onClick={signOut} className="navbar__link">
-                  { userData.email }
+                <Link className="navbar__link">
+                  {userData.email}
                 </Link>
               </li>
               <li className="navbar__item">
@@ -29,16 +51,7 @@ function NavBar({ isLoggedIn, userData }) {
           )
           : (
             <>
-              <li className="navbar__item">
-                <Link to="/signin" className="navbar__link">
-                  Вход
-                </Link>
-              </li>
-              <li className="navbar__item">
-                <Link to="/signin" className="navbar__link">
-                  Регистрация
-                </Link>
-              </li>
+              { showCurrentLink()}
             </>
           )
       }

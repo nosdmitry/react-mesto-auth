@@ -22,6 +22,7 @@ function App(props) {
   const [userData, setUserData] = React.useState({
     email: null
   })
+
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -154,6 +155,10 @@ function App(props) {
       }
     }
   }
+
+  function handleLoggeIn() {
+    
+  }
   
   return (
     <CurrentUserContext.Provider value={ currentUser }>
@@ -182,6 +187,14 @@ function App(props) {
               component={ Main }
             />
 
+            <Route path="/signup">
+              <Register />
+            </Route>
+
+            <Route path="/signin">
+              <Login />
+            </Route>
+{/* 
             <Route path="/singup">
               <Register />
             </Route>  
@@ -190,9 +203,9 @@ function App(props) {
               <Login />
             </Route>
 
-            <Route>
+            {/* <Route>
             { isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" /> }
-            </Route>
+            </Route> */} 
             
             <Route path="*">
               <Error />

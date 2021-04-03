@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import * as userAuth from '../utils/userAuth';
 import { useHistory, withRouter } from "react-router";
 
-function Login() {  
-
-  const history = useHistory();
+function Login(props) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const history = useHistory();
 
   function handleEmail(evt) {
     setEmail(evt.target.value);
@@ -19,16 +19,19 @@ function Login() {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    console.log('email: ', email);
-    console.log('password: ', password);
-    userAuth.authorization(email, password);
-    history.push('/');
+    userAuth.authorization(email, password)
+      .then((res) => {
+        setTimeout(() => {
+          console.log('перенаправление');
+        }, 0)
+      })
   }  
 
   return (
     <section className="sign">
       <h3 className="sign__title">Вход</h3>
         <form className="form" onSubmit={ handleSubmit }>
+
           <label className="form__form-field">
             <input
               className="

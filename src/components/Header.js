@@ -1,7 +1,12 @@
 import logo from '../images/logo.svg';
 import NavBar from './NavBar';
+import { useLocation } from 'react-router-dom';
 
 function Header(props) {
+
+  const location = useLocation();
+
+  console.log('location: ', location);
 
   return (
     <header className="header">
@@ -10,6 +15,7 @@ function Header(props) {
       </a>
       <NavBar 
         { ...props }
+        location={ location }
       />  
     </header>
   );
