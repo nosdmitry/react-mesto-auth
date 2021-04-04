@@ -42,6 +42,9 @@ function App(props) {
     src: '',
     title: '',
   });
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+
 
   React.useEffect(() => {  
     tockenCheck();
@@ -176,6 +179,17 @@ function App(props) {
       }
     }
   }
+
+  function handleMenuOpen() {
+    console.log('click', isMenuOpen)
+    setIsMenuOpen(!isMenuOpen);
+  }
+
+  function signOut() {
+    localStorage.removeItem('token');
+    handleLoginStatus();
+    setIsMenuOpen(false);
+  }
   
   return (
     <CurrentUserContext.Provider value={ currentUser }>
@@ -184,8 +198,11 @@ function App(props) {
 
         <Header 
           isLoggedIn={ isLoggedIn }
-          handleLoginStatus={ handleLoginStatus }
+          signOut={ signOut }
           userData={ userData }
+          onClose={ closeAllPopups }
+          isMenuOpen={ isMenuOpen }
+          handleMenuOpen={ handleMenuOpen }
         />
         
           <Switch>  

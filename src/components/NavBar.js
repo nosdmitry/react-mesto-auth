@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
+import UserLinks from "./UserLinks";
+import menuButtonOpenImg from '../images/user_wrap_data.svg';
+import { useState } from "react";
 
-function NavBar({ isLoggedIn, handleLoginStatus, userData, location }) {
+function NavBar({ 
+  isLoggedIn, signOut, 
+  userData, location, handleMenuOpen, isMenuOpen }) {
 
-  function signOut() {
-    localStorage.removeItem('token');
-    handleLoginStatus();
-  }
 
-  function showCurrentLink() {
+  function showAuthLinks() {
     if (location.pathname === '/signup') {
       return (
         <li className="navbar__item">
@@ -27,31 +28,35 @@ function NavBar({ isLoggedIn, handleLoginStatus, userData, location }) {
     }
   }
 
+  function showEmailAndExit() {
+    if(isLoggedIn && window.innerWidth < 768) {
+      return (
+        <>
+          <button 
+            className={`
+              header__menu-button 
+              ${isMenuOpen ? 'header__menu-button_type_opened' : 'header__menu-button_type_closed'}
+            `}
+            aria-label="menu button"
+            onClick={ handleMenuOpen }
+          ></button>
+        </>
+      );
+    }
+    return (
+      <UserLinks 
+        userData={ userData }
+        signOut={ signOut }
+        isMenuOpen={ isMenuOpen }
+      />
+    );
+  }
+
   return (
     <ul className="navbar">
       {
-        isLoggedIn
-          ? (
-            <>
-              <li className="navbar__item">
-                <Link to="#" className="navbar__link">
-                  {userData.email}
-                </Link>
-              </li>
-              <li className="navbar__item">
-                <Link to="/" onClick={signOut} className="navbar__link">
-                  Выйти
-                </Link>
-              </li>
-            </>
-          )
-          : (
-            <>
-              { showCurrentLink()}
-            </>
-          )
+        isLoggedIn ? showEmailAndExit() : showAuthLinks()
       }
-
     </ul>
   );
 }
