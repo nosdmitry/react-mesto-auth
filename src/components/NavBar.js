@@ -28,8 +28,10 @@ function NavBar({
     }
   }
 
+  
+
   function showEmailAndExit() {
-    if(isLoggedIn) {
+    if(isLoggedIn && window.innerWidth < 768) {
       return (
         <>
           <button 

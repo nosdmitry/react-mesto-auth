@@ -7,8 +7,6 @@ function Header(props) {
 
   const location = useLocation();
   
-
-
   return (
     <header className="header">
       
