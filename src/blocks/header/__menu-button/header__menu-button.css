@@ -1,0 +1,17 @@
+.header__menu-button {
+  margin: 0 20px 0 0;
+  outline: none;
+  border: none;
+  background-color: none;
+  width: 24px;
+  height: 24px;
+  background-image: url(../../../images/user_wrap_data.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  transition: opacity .1s linear;
+}
+
+.header__menu-button:hover {
+  opacity: .6;
+}

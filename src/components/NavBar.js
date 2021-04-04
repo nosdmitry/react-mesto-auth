@@ -1,13 +1,11 @@
 import { Link } from "react-router-dom";
+import UserLinks from "./UserLinks";
 
-function NavBar({ isLoggedIn, handleLoginStatus, userData, location }) {
+function NavBar({ 
+  isLoggedIn, signOut, 
+  userData, location, handleMenuOpen }) {
 
-  function signOut() {
-    localStorage.removeItem('token');
-    handleLoginStatus();
-  }
-
-  function showCurrentLink() {
+  function showAuthLinks() {
     if (location.pathname === '/signup') {
       return (
         <li className="navbar__item">
@@ -27,31 +25,35 @@ function NavBar({ isLoggedIn, handleLoginStatus, userData, location }) {
     }
   }
 
+  function handleMenuButton() {
+
+  }
+
+  function showEmailAndExit() {
+    if(isLoggedIn) {
+      return (
+        <>
+          <button 
+            className="header__menu-button" 
+            aria-label="menu button"
+            onClick={ handleMenuOpen }
+          ></button>
+        </>
+      );
+    }
+    return (
+      <UserLinks 
+        userData={ userData }
+        signOut={ signOut }
+      />
+    );
+  }
+
   return (
     <ul className="navbar">
       {
-        isLoggedIn
-          ? (
-            <>
-              <li className="navbar__item">
-                <Link to="#" className="navbar__link">
-                  {userData.email}
-                </Link>
-              </li>
-              <li className="navbar__item">
-                <Link to="/" onClick={signOut} className="navbar__link">
-                  Выйти
-                </Link>
-              </li>
-            </>
-          )
-          : (
-            <>
-              { showCurrentLink()}
-            </>
-          )
+        isLoggedIn ? showEmailAndExit() : showAuthLinks()
       }
-
     </ul>
   );
 }
