@@ -1,7 +1,6 @@
 import logo from '../images/logo.svg';
 import NavBar from './NavBar';
 import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
 import UserLinks from './UserLinks';
 
 function Header(props) {

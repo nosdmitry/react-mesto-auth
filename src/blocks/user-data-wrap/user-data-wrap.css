@@ -1,8 +1,9 @@
 .user-data-wrap {
   width: 100%;
-  border: 1px solid red;
+  min-height: 70px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
