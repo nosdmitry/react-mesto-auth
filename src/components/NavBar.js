@@ -28,8 +28,6 @@ function NavBar({
     }
   }
 
-  
-
   function showEmailAndExit() {
     if(isLoggedIn && window.innerWidth < 768) {
       return (
