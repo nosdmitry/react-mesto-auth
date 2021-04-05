@@ -1,10 +1,12 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import PopupWithForm from './PopupWithForm';
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace, submitButtonName }) {
 
   const [cardName, setCardName] = React.useState('');
   const [cardLink, setCardLink] = React.useState('');
+  const { register, formState: { errors }, handleSubmit } = useForm();
 
   function handleCardName(e) {
     setCardName(e.target.value);
@@ -14,14 +16,11 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, submitButtonName }) {
     setCardLink(e.target.value);
   }
 
-  function handleSubmitClick(e) {
-    e.preventDefault();
+  function handleSubmitButton() {
     onAddPlace({
       name: cardName,
       link: cardLink
     });
-    setCardName('');
-    setCardLink('');
   }
 
   return (
@@ -31,35 +30,46 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, submitButtonName }) {
       submitName={ submitButtonName }
       isOpen={ isOpen }
       onClose={ onClose }
-      onSubmit={ handleSubmitClick }
+      onSubmit={ handleSubmit(() => handleSubmitButton()) }
     >
       <label className="form__form-field">
         <input 
           id="place-name" 
           type="text" 
-          name="popup_name" 
-          minLength="2" 
-          maxLength="30" 
           placeholder="Название"
           className="form__input" 
+          { ...register('title', { 
+            required: 'Поле не может быть пустым', 
+            minLength: { 
+              value: 2, 
+              message: 'Название не может быть короче двух символов'
+            },
+            maxLength: {
+              value: 30,
+              message: 'Название должно быть короче 30 символов'
+            },
+            value: cardName
+          })
+          }
           onChange={ handleCardName }
-          value={ cardName || '' }
-          required 
         />
-        <span className="place-name-error form__error"></span>
+        { errors.title && (<span className="form__error">{ errors.title.message }</span>) }
       </label>
       <label className="form__form-field">
         <input 
           id="place-url" 
-          type="url" 
-          name="popup_description" 
           placeholder="Ссылка на картинку"
           className="form__input" 
+          type="url" 
+          { ...register('cardUrl', { 
+            required: 'Введите URL адрес', 
+            value: cardLink
+            })
+          }
           onChange={ handleCardLink }
-          value={ cardLink || '' }
-          required 
+          required
         />
-        <span className="place-url-error form__error"></span>
+           { errors.cardUrl && (<span className="form__error">{ errors.cardUrl.message }</span>) }
       </label>
     </PopupWithForm>
   );

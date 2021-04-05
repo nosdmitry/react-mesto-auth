@@ -1,16 +1,17 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
+import { useForm } from 'react-hook-form';
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, submitButtonName }) {
 
-  let avatarRef = React.useRef('');
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  let avatarRef = React.useRef('');
+  const { register, formState: { errors }, handleSubmit } = useForm();
+
+  function handleSubmitButton() {
     onUpdateAvatar({
       avatar: avatarRef.current.value
     });
-    e.target.reset();
   }
 
   return (
@@ -20,19 +21,25 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, submitButtonName }) 
       submitName={ submitButtonName }
       isOpen={ isOpen }
       onClose={ onClose }
-      onSubmit={ handleSubmit }
+      onSubmit={ handleSubmit(() => handleSubmitButton ) }
     >
       <label className="form__form-field">
         <input 
           id="user-avatar" 
-          type="url" 
-          name="popup_description" 
+          type="url"
+          { ...register('description', { 
+            required: 'Введите URL адрес', 
+            minLength: { 
+              value: 2, 
+              message: 'Имя не может быть короче двух символов' 
+            },
+          }) 
+          } 
           placeholder="Ссылка на картинку"
           className="form__input" 
-          ref={ avatarRef }
-          required 
+          // ref={ avatarRef }
         />
-        <span className="user-avatar-error form__error"></span>
+        { errors.description && (<span className="form__error">{ errors.description.message }</span>) }
       </label>
     </PopupWithForm>
   );

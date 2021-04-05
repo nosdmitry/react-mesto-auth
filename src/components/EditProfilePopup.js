@@ -42,20 +42,22 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, submitButtonName }) {
       submitName={ submitButtonName }
       isOpen={ isOpen }
       onClose={ onClose }
-      onSubmit={ handleSubmit((data) => {
-        console.log(data);
+      onSubmit={ handleSubmit(() => {
         handleSubmitButton();
       })}
     >
       <label className="form__form-field">
         <input 
-          id="user-name" 
           type="text" 
           { ...register('name', { 
             required: 'Поле не может быть пустым', 
             minLength: { 
               value: 2, 
               message: 'Имя не может быть короче двух символов'
+            },
+            maxLength: {
+              value: 40,
+              message: 'Описание слишком длинное. Сделайте короче 40 символов'
             },
             value: name
           })
@@ -65,19 +67,21 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, submitButtonName }) {
           placeholder="Имя"
           className="form__input" 
           onChange={ handleName }
-          required 
         />
         { errors.name && (<span className="form__error">{ errors.name.message }</span>) }
       </label>
       <label className="form__form-field">
         <input 
-          id="user-description" 
           type="text" 
           { ...register('description', { 
             required: 'Поле не может быть пустым', 
             minLength: { 
               value: 2, 
               message: 'Имя не может быть короче двух символов' 
+            },
+            maxLength: {
+              value: 200,
+              message: 'Описание слишком длинное. Сделайте короче 200 символов'
             },
             value: description 
           }) 
@@ -87,7 +91,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, submitButtonName }) {
           placeholder="Род деятельности" 
           className="form__input" 
           onChange={ handleDescription }
-          required 
         />
         { errors.description && (<span className="form__error">{ errors.description.message }</span>) }
       </label>
