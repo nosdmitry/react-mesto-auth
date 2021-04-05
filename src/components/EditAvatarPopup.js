@@ -9,6 +9,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, submitButtonName }) 
   const { register, formState: { errors }, handleSubmit } = useForm();
 
   function handleSubmitButton() {
+    console.log(avatarRef)
     onUpdateAvatar({
       avatar: avatarRef.current.value
     });
@@ -16,30 +17,31 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, submitButtonName }) 
 
   return (
     <PopupWithForm 
-      name="change-avatar" 
+      name="change-avatar"
       title="Обновить аватар" 
       submitName={ submitButtonName }
       isOpen={ isOpen }
       onClose={ onClose }
-      onSubmit={ handleSubmit(() => handleSubmitButton ) }
+      onSubmit={ handleSubmit(() => handleSubmitButton() ) }
     >
-      <label className="form__form-field">
+      <label htmlFor="userAvatar" className="form__form-field">
         <input 
-          id="user-avatar" 
+          id="userAvatar" 
           type="url"
-          { ...register('description', { 
-            required: 'Введите URL адрес', 
-            minLength: { 
-              value: 2, 
-              message: 'Имя не может быть короче двух символов' 
-            },
+          { ...register('userAvatar', { 
+            required: "Введите URL адрес",
+            value: avatarRef
           }) 
           } 
           placeholder="Ссылка на картинку"
           className="form__input" 
-          // ref={ avatarRef }
+          ref={ avatarRef }
         />
-        { errors.description && (<span className="form__error">{ errors.description.message }</span>) }
+        { errors.userAvatar && (
+          <span className="form__error">{
+            errors.userAvatar.message 
+          }</span>)
+        }
       </label>
     </PopupWithForm>
   );

@@ -62,8 +62,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, submitButtonName }) {
             value: name
           })
           }
-          minLength="2" 
-          maxLength="40" 
           placeholder="Имя"
           className="form__input" 
           onChange={ handleName }
