@@ -43,8 +43,11 @@ function App(props) {
     title: '',
   });
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [submitButtonName, setSubmitButtonName] = React.useState('');
 
-
+  function changeSubmitButtonName(name) {
+    setSubmitButtonName(name);
+  }
 
   React.useEffect(() => {  
     tockenCheck();
@@ -80,22 +83,27 @@ function App(props) {
   }
   
   function handleEditProfileClick() {
+    changeSubmitButtonName('Сохранить');
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
   }
 
   function handleAddPlaceClick() {
+    changeSubmitButtonName('Создать');
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
   function handleEditAvatarClick() {
+    changeSubmitButtonName('Сохранить');
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpened);
   }
 
   function handleDeleteCardClick(card) {
+    changeSubmitButtonName('Удалить');
     setIsDeleteCardPopupOpened(card);
   }
 
   function handleUpdateUser(userData) {
+    changeSubmitButtonName('Сохранение...')
     api.editUserInfo(userData)
       .then(data => {
         setCurrentUser(data);
@@ -105,6 +113,7 @@ function App(props) {
   }
 
   function handleUpdateAvatar(avatarLink) {
+    changeSubmitButtonName('Сохранение...');
     api.changeAvatar(avatarLink) 
       .then(data => {
         setCurrentUser(data);
@@ -126,6 +135,7 @@ function App(props) {
   }  
 
   function handleDeleteConfirm(card) {
+    changeSubmitButtonName('Удаление...');
     api.deleteCard(card._id)
       .then(() => {
         setCards(state => {
@@ -156,6 +166,7 @@ function App(props) {
   }
 
   function handleAddPlaceSubmit(card) {
+    changeSubmitButtonName('Добавление...');
     api.addNewCard(card)
       .then(newCard => {
         setCards([newCard, ...cards]);
@@ -265,24 +276,28 @@ function App(props) {
         isOpen={ isEditProfilePopupOpen }
         onClose={ closeAllPopups }
         onUpdateUser={ handleUpdateUser }
+        submitButtonName={ submitButtonName }
       />
 
       <EditAvatarPopup
         isOpen={ isEditAvatarPopupOpened }
         onClose={ closeAllPopups }
         onUpdateAvatar={ handleUpdateAvatar }
+        submitButtonName={ submitButtonName }
       />
 
       <AddPlacePopup 
         isOpen={ isAddPlacePopupOpen }
         onClose={ closeAllPopups }
         onAddPlace={ handleAddPlaceSubmit }
+        submitButtonName={ submitButtonName }
       />
 
       <ConfirmationPopup
         isOpen={ isDeleteCardPopupOpened }
         onClose={ closeAllPopups }
         onDeleteCard={ deleteCard }
+        submitButtonName={ submitButtonName }
       />
 
     </CurrentUserContext.Provider>
