@@ -1,9 +1,11 @@
 .user-data-wrap {
   width: 100%;
-  min-height: 70px;
+  min-height: 55px;
+  padding-bottom: 30px;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid rgba(84, 84, 84, .7);
 }
