@@ -69,7 +69,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, submitButtonName }) {
           onChange={ handleCardLink }
           required
         />
-           { errors.cardUrl && (<span className="form__error">{ errors.cardUrl.message }</span>) }
+        { errors.cardUrl && (<span className="form__error">{ errors.cardUrl.message }</span>) }
       </label>
     </PopupWithForm>
   );

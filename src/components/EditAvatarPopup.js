@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 import { useForm } from 'react-hook-form';
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, submitButtonName }) {
 
-
-  let avatarRef = React.useRef('');
   const { register, formState: { errors }, handleSubmit } = useForm();
+  const [link, setLink] = useState('');
+
+  function handleInput(e) {
+    setLink(e.target.value)
+  }
 
   function handleSubmitButton() {
-    console.log(avatarRef)
+    console.log(link)
     onUpdateAvatar({
-      avatar: avatarRef.current.value
+      avatar: link
     });
   }
 
@@ -22,26 +25,23 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, submitButtonName }) 
       submitName={ submitButtonName }
       isOpen={ isOpen }
       onClose={ onClose }
-      onSubmit={ handleSubmit(() => handleSubmitButton() ) }
+      onSubmit={ handleSubmit((data) => handleSubmitButton() ) }
     >
       <label htmlFor="userAvatar" className="form__form-field">
         <input 
           id="userAvatar" 
           type="url"
+          required
           { ...register('userAvatar', { 
             required: "Введите URL адрес",
-            value: avatarRef
+            value: link 
           }) 
           } 
           placeholder="Ссылка на картинку"
           className="form__input" 
-          ref={ avatarRef }
+          onChange={ handleInput }
         />
-        { errors.userAvatar && (
-          <span className="form__error">{
-            errors.userAvatar.message 
-          }</span>)
-        }
+        { errors.userAvatar && (<span className="form__error">{ errors.userAvatar.message }</span>) }
       </label>
     </PopupWithForm>
   );

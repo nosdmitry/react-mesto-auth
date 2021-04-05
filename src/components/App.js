@@ -20,10 +20,7 @@ import * as userAuth from '../utils/userAuth';
 
 function App(props) {
 
-  const [userData, setUserData] = React.useState({
-    email: null
-  })
-
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -32,6 +29,7 @@ function App(props) {
   const [selectedCard, setSelectedCard] = React.useState(false);
   const [cards, setCards] = React.useState([]);
   const [loadingSpinner, setLoadingSpinner] = React.useState(true);
+  const [submitButtonName, setSubmitButtonName] = React.useState('');
   const [currentUser, setCurrentUser] = React.useState({
     avatar: loadingImage,
     name: 'Загрузка',
@@ -42,12 +40,9 @@ function App(props) {
     src: '',
     title: '',
   });
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [submitButtonName, setSubmitButtonName] = React.useState('');
-
-  function changeSubmitButtonName(name) {
-    setSubmitButtonName(name);
-  }
+  const [userData, setUserData] = React.useState({
+    email: null
+  })
 
   React.useEffect(() => {  
     tockenCheck();
@@ -120,6 +115,25 @@ function App(props) {
         closeAllPopups();
       })
       .catch(err => console.log('#### Avatar update falied ####', err));
+  } 
+
+  function deleteCard() {
+    handleDeleteConfirm(isDeleteCardPopupOpened);
+  }
+
+  function changeSubmitButtonName(name) {
+    setSubmitButtonName(name);
+  }
+
+  function handleMenuOpen() {
+    console.log('click', isMenuOpen)
+    setIsMenuOpen(!isMenuOpen);
+  }
+
+  function signOut() {
+    localStorage.removeItem('token');
+    handleLoginStatus();
+    setIsMenuOpen(false);
   }
 
   function closeAllPopups() {
@@ -132,8 +146,8 @@ function App(props) {
       isOpen: false,
     }
     )
-  }  
-
+  } 
+  
   function handleDeleteConfirm(card) {
     changeSubmitButtonName('Удаление...');
     api.deleteCard(card._id)
@@ -146,10 +160,6 @@ function App(props) {
         closeAllPopups();
       })
       .catch(err => console.log('#### Delete card error ####', err));
-  }
-
-  function deleteCard() {
-    handleDeleteConfirm(isDeleteCardPopupOpened);
   }
 
   function handleCardLike(card) {
@@ -191,17 +201,7 @@ function App(props) {
     }
   }
 
-  function handleMenuOpen() {
-    console.log('click', isMenuOpen)
-    setIsMenuOpen(!isMenuOpen);
-  }
 
-  function signOut() {
-    localStorage.removeItem('token');
-    handleLoginStatus();
-    setIsMenuOpen(false);
-  }
-  
   return (
     <CurrentUserContext.Provider value={ currentUser }>
       
