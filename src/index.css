@@ -32,7 +32,7 @@
 @import url(./blocks/form/__form-field/form__form-field.css);
 @import url(./blocks/form/__input/_type/form__input_type_sign.css);
 @import url(./blocks/form/__input/_type/form__input_type_password.css);
-@import url(./blocks/form/__error/_visible/form__error_visible.css);
+@import url(./blocks/form/__error/form__error.css);
 @import url(./blocks/form/__submit/form__submit.css);
 @import url(./blocks/form/__submit/_type/form__submit_type_sign.css);
 @import url(./blocks/form/__submit/_type/form__submit_type_popup.css);

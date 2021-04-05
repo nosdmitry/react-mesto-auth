@@ -1,9 +1,16 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import PopupWithForm from './PopupWithForm';
 
+
+
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, submitButtonName }) {
+
+
   
+  const { register, formState: { errors }, handleSubmit } = useForm();
+
   const currentUser = React.useContext(CurrentUserContext);
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
@@ -16,8 +23,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, submitButtonName }) {
     setDescription(e.target.value);
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  function handleSubmitButton() {
     onUpdateUser({
       name: name,
       about: description
@@ -36,37 +42,54 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, submitButtonName }) {
       submitName={ submitButtonName }
       isOpen={ isOpen }
       onClose={ onClose }
-      onSubmit={ handleSubmit }
+      onSubmit={ handleSubmit((data) => {
+        console.log(data);
+        handleSubmitButton();
+      })}
     >
       <label className="form__form-field">
         <input 
           id="user-name" 
           type="text" 
-          name="popup_name" 
+          { ...register('name', { 
+            required: 'Поле не может быть пустым', 
+            minLength: { 
+              value: 2, 
+              message: 'Имя не может быть короче двух символов'
+            },
+            value: name
+          })
+          }
           minLength="2" 
           maxLength="40" 
           placeholder="Имя"
           className="form__input" 
-          value={ name }
           onChange={ handleName }
           required 
         />
-        <span className="user-name-error form__error"></span>
+        { errors.name && (<span className="form__error">{ errors.name.message }</span>) }
       </label>
       <label className="form__form-field">
         <input 
           id="user-description" 
           type="text" 
-          name="popup_description" 
+          { ...register('description', { 
+            required: 'Поле не может быть пустым', 
+            minLength: { 
+              value: 2, 
+              message: 'Имя не может быть короче двух символов' 
+            },
+            value: description 
+          }) 
+          }
           minLength="2" 
           maxLength="200"
           placeholder="Род деятельности" 
           className="form__input" 
-          value={ description }
           onChange={ handleDescription }
           required 
         />
-        <span className="user-description-error form__error"></span>
+        { errors.description && (<span className="form__error">{ errors.description.message }</span>) }
       </label>
     </PopupWithForm>
   );
