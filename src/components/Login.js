@@ -20,6 +20,9 @@ function Login(props) {
   function handleSubmit(evt) {
     evt.preventDefault();
     userAuth.authorization(email, password)
+      .then((data) => {
+        localStorage.setItem('token', data.token);
+      })
       .then(() => {
         props.handleLoginStatus();
         props.handleUserData({ email: email });

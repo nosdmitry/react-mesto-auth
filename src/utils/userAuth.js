@@ -9,7 +9,6 @@ export const register = (email, password) => {
     body: JSON.stringify({ email, password })
   })
     .then(res => res.ok ? res.json() : Promise.reject(`### ERRROR: ${res.status}`))
-    .catch(err => console.log(err))
 }
 
 export const authorization = (email, password) => {
@@ -21,9 +20,6 @@ export const authorization = (email, password) => {
     body: JSON.stringify({ email, password })
   })
     .then(res => res.ok ? res.json() : Promise.reject(`#### ERROR: ${res.statusText}`))
-    .then((data) => {
-      localStorage.setItem('token', data.token);
-    })
 }
 
 export const getContent = (token) => {
@@ -35,5 +31,4 @@ export const getContent = (token) => {
     }
   })
   .then(res => res.ok ? res.json() : Promise.reject(`### ERROR: ${res.statusText}`))
-  .catch(err => console.log(err));
 }
