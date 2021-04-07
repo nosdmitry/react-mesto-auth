@@ -241,11 +241,9 @@ function App(props) {
     setIsMenuOpen(false);
   }
 
-
   return (
 
-    
-    <CurrentUserContext.Provider value={ currentUser }>
+        <CurrentUserContext.Provider value={ currentUser }>
       
       <div className="page">
 
@@ -304,8 +302,6 @@ function App(props) {
             </Route>
 
           </Switch>
-        
-          
 
         <Footer />
 
