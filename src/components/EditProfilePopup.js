@@ -12,8 +12,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, submitButtonName }) {
   const { register, formState: { errors }, handleSubmit } = useForm();
 
   const currentUser = React.useContext(CurrentUserContext);
-  const [name, setName] = React.useState('');
-  const [description, setDescription] = React.useState('');
+  const [name, setName] = React.useState(currentUser.name);
+  const [description, setDescription] = React.useState(currentUser.about);
 
   function handleName(e) {
     setName(e.target.value);
@@ -59,9 +59,9 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, submitButtonName }) {
               value: 40,
               message: 'Описание слишком длинное. Сделайте короче 40 символов'
             },
-            value: name
           })
           }
+          value={ name }
           placeholder="Имя"
           className="form__input" 
           onChange={ handleName }
@@ -81,9 +81,9 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, submitButtonName }) {
               value: 200,
               message: 'Описание слишком длинное. Сделайте короче 200 символов'
             },
-            value: description 
           }) 
           }
+          value={ description }
           minLength="2" 
           maxLength="200"
           placeholder="Род деятельности" 

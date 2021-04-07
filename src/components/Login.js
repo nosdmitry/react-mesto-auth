@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import * as userAuth from '../utils/userAuth';
 import { withRouter } from "react-router";
-import regFailedImg from "../images/reg_failed.svg";
-import InfoTooltip from "./InfoTooltip";
 
 function Login(props) {
 
@@ -19,31 +16,13 @@ function Login(props) {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    userAuth.authorization(email, password)
-      .then((data) => {
-        localStorage.setItem('token', data.token);
-      })
-      .then(() => {
-        props.handleLoginStatus();
-        props.handleUserData({ email: email });
-        props.history.push('/');
-      })
-      .catch(() => {
-        props.handleTooltip(true, regFailedImg, "Что-то пошло не так! Попробуйте ещё раз.")
-      })
+    props.onLogin(email, password)
   }
 
   return (
     <section className="sign">
       <h3 className="sign__title">Вход</h3>
-      {
-          props.infoTolltip.isOpen 
-            ? <InfoTooltip 
-                { ...props.infoTolltip }
-                handleCloseButton={ props.onClose }
-              />
-            : null
-        }
+
         <form className="form" onSubmit={ handleSubmit }>
 
           <label className="form__form-field">

@@ -1,9 +1,5 @@
 import React, { useState } from "react";
 import { Link, withRouter } from "react-router-dom";
-import * as userAuth from "../utils/userAuth";
-import regConfirmImg from "../images/reg_confirm.svg";
-import regFailedImg from "../images/reg_failed.svg";
-import InfoTooltip from "./InfoTooltip";
 
 
 function Register(props) {
@@ -21,32 +17,12 @@ function Register(props) {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    userAuth.register(email, password)
-      .then(res => {
-        if(res) {
-          props.handleTooltip(true, regConfirmImg, "Вы успешно зарегистрировались!");
-          setTimeout(() => {
-            props.onClose();
-            props.history.push('/signin');
-          }, 2000);
-        } else {
-          props.handleTooltip(true, regFailedImg, "Что-то пошло не так! Попробуйте ещё раз.")
-        }
-      })
-      .catch(err => console.log(err));
+    props.onRegister(email, password);
   }
 
   return (
     <section className="sign">
       <h3 className="sign__title">Регистрация</h3>
-        {
-          props.infoTolltip.isOpen 
-            ? <InfoTooltip 
-                { ...props.infoTolltip }
-                handleCloseButton={ props.onClose }
-              />
-            : null
-        }
         <form className="form" onSubmit={ handleSubmit }>
           <label className="form__form-field">
             <input

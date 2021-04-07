@@ -1,5 +1,7 @@
 import '../index.css';
 import loadingImage from '../images/avatar-loader.gif';
+import regFailedImg from "../images/reg_failed.svg";
+import regConfirmImg from "../images/reg_confirm.svg";
 import React from 'react';
 import Header from './Header';
 import Main from './Main';
@@ -17,6 +19,7 @@ import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from './ProtectedRoute';
 import * as userAuth from '../utils/userAuth';
+import InfoTooltip from './InfoTooltip';
 
 function App(props) {
 
@@ -130,12 +133,6 @@ function App(props) {
     setIsMenuOpen(!isMenuOpen);
   }
 
-  function signOut() {
-    localStorage.removeItem('token');
-    handleLoginStatus();
-    setIsMenuOpen(false);
-  }
-
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -185,6 +182,42 @@ function App(props) {
       .catch(err => console.log('#### Add card failed ####', err));
   }
 
+  function handleAuthorization(email, password) {
+    userAuth.authorization(email, password)
+      .then((data) => {
+        localStorage.setItem('token', data.token);
+      })
+      .then(() => {
+        handleLoginStatus();
+        setUserData({ email: email });
+        props.history.push('/');
+      })
+      .catch((err) => {
+        handleTooltip(true, regFailedImg, "Что-то пошло не так! Попробуйте ещё раз.")
+        console.log(err);
+      })
+  }
+
+  function handleRegister(email, password) {
+    userAuth.register(email, password)
+      .then(res => {
+        if(res) {
+          handleTooltip(true, regConfirmImg, "Вы успешно зарегистрировались!");
+          setTimeout(() => {
+            closeAllPopups();
+            props.history.push('/signin');
+          }, 2000);
+          console.log('succsess');
+        } else {
+          console.log('failed!');
+        }
+      })
+      .catch(err => {
+        handleTooltip(true, regFailedImg, "Что-то пошло не так! Попробуйте ещё раз.")
+        console.log(err)
+      });
+  }
+
   function tockenCheck() {
     if(localStorage.getItem('token')) {
       const token = localStorage.getItem('token');
@@ -202,9 +235,15 @@ function App(props) {
     }
   }
 
+  function signOut() {
+    localStorage.removeItem('token');
+    handleLoginStatus();
+    setIsMenuOpen(false);
+  }
 
   return (
-    <CurrentUserContext.Provider value={ currentUser }>
+
+        <CurrentUserContext.Provider value={ currentUser }>
       
       <div className="page">
 
@@ -239,6 +278,7 @@ function App(props) {
                 handleTooltip={ handleTooltip }
                 infoTolltip={ infoTolltip }
                 onClose={ closeAllPopups }
+                onRegister={ handleRegister }
               />
             </Route>
 
@@ -252,6 +292,7 @@ function App(props) {
                       handleUserData={ setUserData }
                       infoTolltip={ infoTolltip }
                       onClose={ closeAllPopups }
+                      onLogin={ handleAuthorization }
                     />
               }
             </Route>
@@ -261,8 +302,6 @@ function App(props) {
             </Route>
 
           </Switch>
-        
-          
 
         <Footer />
 
@@ -299,6 +338,11 @@ function App(props) {
         onClose={ closeAllPopups }
         onDeleteCard={ deleteCard }
         submitButtonName={ submitButtonName }
+      />
+
+      <InfoTooltip 
+        { ...infoTolltip }
+        onClose={ closeAllPopups }
       />
 
     </CurrentUserContext.Provider>

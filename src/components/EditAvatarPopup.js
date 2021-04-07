@@ -4,12 +4,9 @@ import { useForm } from 'react-hook-form';
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, submitButtonName }) {
 
-  const { register, formState: { errors }, handleSubmit } = useForm();
-  const [link, setLink] = useState('');
-
-  function handleInput(e) {
-    setLink(e.target.value)
-  }
+  const { register, formState: { errors }, handleSubmit, watch } = useForm();
+  
+  const link = watch('userAvatar');
 
   function handleSubmitButton() {
     console.log(link)
@@ -20,26 +17,24 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, submitButtonName }) 
 
   return (
     <PopupWithForm 
+      id="userAvatar"
       name="change-avatar"
       title="Обновить аватар" 
       submitName={ submitButtonName }
       isOpen={ isOpen }
       onClose={ onClose }
-      onSubmit={ handleSubmit((data) => handleSubmitButton() ) }
+      onSubmit={ handleSubmit(() => handleSubmitButton() ) }
     >
       <label htmlFor="userAvatar" className="form__form-field">
         <input 
           id="userAvatar" 
           type="url"
-          required
           { ...register('userAvatar', { 
             required: "Введите URL адрес",
-            value: link 
           }) 
           } 
           placeholder="Ссылка на картинку"
           className="form__input" 
-          onChange={ handleInput }
         />
         { errors.userAvatar && (<span className="form__error">{ errors.userAvatar.message }</span>) }
       </label>
