@@ -21,19 +21,7 @@ function Register(props) {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    userAuth.register(email, password)
-      .then(res => {
-        if(res) {
-          props.handleTooltip(true, regConfirmImg, "Вы успешно зарегистрировались!");
-          setTimeout(() => {
-            props.onClose();
-            props.history.push('/signin');
-          }, 2000);
-        } else {
-          props.handleTooltip(true, regFailedImg, "Что-то пошло не так! Попробуйте ещё раз.")
-        }
-      })
-      .catch(err => console.log(err));
+    props.onRegister(email, password);
   }
 
   return (

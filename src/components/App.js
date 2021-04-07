@@ -201,6 +201,24 @@ function App(props) {
       })
   }
 
+  function handleRegister(email, password) {
+    userAuth.register(email, password)
+      .then(res => {
+        if(res) {
+          //props.handleTooltip(true, regConfirmImg, "Вы успешно зарегистрировались!");
+          // setTimeout(() => {
+          //   props.onClose();
+          //   props.history.push('/signin');
+          // }, 2000);
+          console.log('succsess');
+        } else {
+          //props.handleTooltip(true, regFailedImg, "Что-то пошло не так! Попробуйте ещё раз.")
+          console.log('failed!');
+        }
+      })
+      .catch(err => console.log(err));
+  }
+
   function tockenCheck() {
     if(localStorage.getItem('token')) {
       const token = localStorage.getItem('token');
@@ -255,6 +273,7 @@ function App(props) {
                 handleTooltip={ handleTooltip }
                 infoTolltip={ infoTolltip }
                 onClose={ closeAllPopups }
+                onRegister={ handleRegister }
               />
             </Route>
 
