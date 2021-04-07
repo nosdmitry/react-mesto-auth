@@ -196,7 +196,8 @@ function App(props) {
             setUserData({email: res.data.email});
             props.history.push('/');
           }
-        });
+        })
+        .catch(err => console.log(err));
       }
     }
   }

@@ -32,7 +32,8 @@ function Register(props) {
         } else {
           props.handleTooltip(true, regFailedImg, "Что-то пошло не так! Попробуйте ещё раз.")
         }
-      });
+      })
+      .catch(err => console.log(err));
   }
 
   return (

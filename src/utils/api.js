@@ -58,22 +58,6 @@ export class Api {
     .then(res => this._onError(res, 'Ошибка при удалении картчоки'))
   }
 
-  // addLike(cardId) {
-  //   return fetch(`${this._url}cards/likes/${cardId}`, {
-  //     method: 'PUT',
-  //     headers: this._headers
-  //   })
-  //   .then(res => this._onError(res, 'Ошибка при обработке лайка'))
-  // }
-
-  // removeLike(cardId) {
-  //   return fetch(`${this._url}cards/likes/${cardId}`, {
-  //     method: 'DELETE',
-  //     headers: this._headers
-  //   })
-  //   .then(res => this._onError(res, 'Ошибка при обработке лайка'))
-  // }
-
   handleCardLikeStatus(cardId, isLiked) {
     console.log('hello from API!');
     const fetchMethod = !isLiked ? 'DELETE' : 'PUT';
