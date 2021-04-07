@@ -19,18 +19,7 @@ function Login(props) {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    userAuth.authorization(email, password)
-      .then((data) => {
-        localStorage.setItem('token', data.token);
-      })
-      .then(() => {
-        props.handleLoginStatus();
-        props.handleUserData({ email: email });
-        props.history.push('/');
-      })
-      .catch(() => {
-        props.handleTooltip(true, regFailedImg, "Что-то пошло не так! Попробуйте ещё раз.")
-      })
+    props.onLogin(email, password)
   }
 
   return (

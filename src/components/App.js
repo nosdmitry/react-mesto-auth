@@ -185,6 +185,22 @@ function App(props) {
       .catch(err => console.log('#### Add card failed ####', err));
   }
 
+  function handleAuthorization(email, password) {
+    userAuth.authorization(email, password)
+      .then((data) => {
+        localStorage.setItem('token', data.token);
+      })
+      .then(() => {
+        handleLoginStatus();
+        setUserData({ email: email });
+        props.history.push('/');
+      })
+      .catch((err) => {
+        // props.handleTooltip(true, regFailedImg, "Что-то пошло не так! Попробуйте ещё раз.")
+        console.log(err);
+      })
+  }
+
   function tockenCheck() {
     if(localStorage.getItem('token')) {
       const token = localStorage.getItem('token');
@@ -252,6 +268,7 @@ function App(props) {
                       handleUserData={ setUserData }
                       infoTolltip={ infoTolltip }
                       onClose={ closeAllPopups }
+                      onLogin={ handleAuthorization }
                     />
               }
             </Route>
