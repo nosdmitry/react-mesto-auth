@@ -1,5 +1,7 @@
 import '../index.css';
 import loadingImage from '../images/avatar-loader.gif';
+import regFailedImg from "../images/reg_failed.svg";
+import regConfirmImg from "../images/reg_confirm.svg";
 import React from 'react';
 import Header from './Header';
 import Main from './Main';
@@ -130,12 +132,6 @@ function App(props) {
     setIsMenuOpen(!isMenuOpen);
   }
 
-  function signOut() {
-    localStorage.removeItem('token');
-    handleLoginStatus();
-    setIsMenuOpen(false);
-  }
-
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -196,7 +192,7 @@ function App(props) {
         props.history.push('/');
       })
       .catch((err) => {
-        // props.handleTooltip(true, regFailedImg, "Что-то пошло не так! Попробуйте ещё раз.")
+        handleTooltip(true, regFailedImg, "Что-то пошло не так! Попробуйте ещё раз.")
         console.log(err);
       })
   }
@@ -205,18 +201,20 @@ function App(props) {
     userAuth.register(email, password)
       .then(res => {
         if(res) {
-          //props.handleTooltip(true, regConfirmImg, "Вы успешно зарегистрировались!");
-          // setTimeout(() => {
-          //   props.onClose();
-          //   props.history.push('/signin');
-          // }, 2000);
+          handleTooltip(true, regConfirmImg, "Вы успешно зарегистрировались!");
+          setTimeout(() => {
+            closeAllPopups();
+            props.history.push('/signin');
+          }, 2000);
           console.log('succsess');
         } else {
-          //props.handleTooltip(true, regFailedImg, "Что-то пошло не так! Попробуйте ещё раз.")
           console.log('failed!');
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        handleTooltip(true, regFailedImg, "Что-то пошло не так! Попробуйте ещё раз.")
+        console.log(err)
+      });
   }
 
   function tockenCheck() {
@@ -234,6 +232,12 @@ function App(props) {
         .catch(err => console.log(err));
       }
     }
+  }
+
+  function signOut() {
+    localStorage.removeItem('token');
+    handleLoginStatus();
+    setIsMenuOpen(false);
   }
 
 

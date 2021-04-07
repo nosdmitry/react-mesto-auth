@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Link, withRouter } from "react-router-dom";
 import * as userAuth from "../utils/userAuth";
-import regConfirmImg from "../images/reg_confirm.svg";
-import regFailedImg from "../images/reg_failed.svg";
 import InfoTooltip from "./InfoTooltip";
 
 

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import * as userAuth from '../utils/userAuth';
 import { withRouter } from "react-router";
-import regFailedImg from "../images/reg_failed.svg";
 import InfoTooltip from "./InfoTooltip";
 
 function Login(props) {
