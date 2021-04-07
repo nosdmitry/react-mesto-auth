@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Link, withRouter } from "react-router-dom";
-import * as userAuth from "../utils/userAuth";
-import InfoTooltip from "./InfoTooltip";
 
 
 function Register(props) {
@@ -25,14 +23,6 @@ function Register(props) {
   return (
     <section className="sign">
       <h3 className="sign__title">Регистрация</h3>
-        {
-          props.infoTolltip.isOpen 
-            ? <InfoTooltip 
-                { ...props.infoTolltip }
-                handleCloseButton={ props.onClose }
-              />
-            : null
-        }
         <form className="form" onSubmit={ handleSubmit }>
           <label className="form__form-field">
             <input

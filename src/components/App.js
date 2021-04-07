@@ -19,6 +19,7 @@ import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from './ProtectedRoute';
 import * as userAuth from '../utils/userAuth';
+import InfoTooltip from './InfoTooltip';
 
 function App(props) {
 
@@ -242,6 +243,8 @@ function App(props) {
 
 
   return (
+
+    
     <CurrentUserContext.Provider value={ currentUser }>
       
       <div className="page">
@@ -339,6 +342,11 @@ function App(props) {
         onClose={ closeAllPopups }
         onDeleteCard={ deleteCard }
         submitButtonName={ submitButtonName }
+      />
+
+      <InfoTooltip 
+        { ...infoTolltip }
+        onClose={ closeAllPopups }
       />
 
     </CurrentUserContext.Provider>

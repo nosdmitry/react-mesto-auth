@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import * as userAuth from '../utils/userAuth';
 import { withRouter } from "react-router";
-import InfoTooltip from "./InfoTooltip";
 
 function Login(props) {
 
@@ -24,14 +22,7 @@ function Login(props) {
   return (
     <section className="sign">
       <h3 className="sign__title">Вход</h3>
-      {
-          props.infoTolltip.isOpen 
-            ? <InfoTooltip 
-                { ...props.infoTolltip }
-                handleCloseButton={ props.onClose }
-              />
-            : null
-        }
+
         <form className="form" onSubmit={ handleSubmit }>
 
           <label className="form__form-field">
